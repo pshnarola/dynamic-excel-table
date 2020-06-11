@@ -36,13 +36,15 @@
               <span *ngIf="!editableCell[rowIndex + '_'+ i]">
                 {{ (!row.noValue) ? tableDetails[i-1][row.key] : '' }}
               </span>
-              <input type="text" [value]="tableDetails[i-1][row.key]" *ngIf="editableCell[rowIndex + '_'+ i]">
+              <input type="text" [value]="tableDetails[i-1][row.key]" [(ngModel)] = "tableDetails[i-1][row.key]" (blur)="onBlurMethod()"
+              *ngIf="editableCell[rowIndex + '_'+ i]" >
             </ng-container>
             <ng-container *ngIf="row.isChild">
               <span *ngIf="!editableCell[rowIndex + '_'+ i]">
                 {{ tableDetails[i-1][row.parent][row.key] }}
               </span>
-              <input type="text" [value]="tableDetails[i-1][row.parent][row.key]" *ngIf="editableCell[rowIndex + '_'+ i]">
+              <input type="text" [value]="tableDetails[i-1][row.parent][row.key]" [(ngModel)] = "tableDetails[i-1][row.parent][row.key]"  
+              *ngIf="editableCell[rowIndex + '_'+ i]" (blur)="onBlurMethod()">
             </ng-container>
           </ng-template>
       </td>

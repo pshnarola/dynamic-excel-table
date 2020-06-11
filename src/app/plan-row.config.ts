@@ -44,7 +44,8 @@ export const PLAN_ROWS = [
         "key": "forecast",
         "isBold": false,
         "isChild": true,
-        "parent": "demandElements"
+        "parent": "demandElements",
+        "isEditable": true
     },
     {
         "key": "salesOrder",

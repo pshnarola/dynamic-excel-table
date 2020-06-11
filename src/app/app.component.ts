@@ -186,4 +186,8 @@ export class AppComponent {
     }
     console.log(this.editableCell);
   }
+
+  onBlurMethod(){
+    console.log('blur data-->', this.tableDetails)
+   }
 }
