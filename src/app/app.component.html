@@ -1,0 +1,51 @@
+<router-outlet></router-outlet>
+<!-- 
+  <table id="customers">
+  <tr>
+    <th>Key Figure</th>
+    <th *ngFor="let head of tableHeader">{{head.header}}</th>
+  </tr>
+  <tr *ngFor="let data of keys">
+    <td>{{data.key | titlecase}}</td>
+    <td *ngFor="let header of tableHeader">
+      <div>
+        {{data['value' + header.header]}}
+      </div>
+    </td>
+  </tr>
+</table> 
+-->
+
+<table id="customers">
+  <thead>
+    <tr>
+      <th *ngFor="let header of headers">
+        {{header}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of planRowsConfig; let rowIndex = index;">
+      <td [ngClass]="{'text-bold': (i==0 && row.isBold), 'child-td': (i==0 &&row.isChild)}"
+        *ngFor="let header of headers;let i = index" (click)="makeEditable(row, rowIndex, i)">
+          <ng-container *ngIf="i==0;else elseBlock">
+            {{row.key}}
+          </ng-container>
+          <ng-template #elseBlock>
+            <ng-container *ngIf="!row.isChild">
+              <span *ngIf="!editableCell[rowIndex + '_'+ i]">
+                {{ (!row.noValue) ? tableDetails[i-1][row.key] : '' }}
+              </span>
+              <input type="text" [value]="tableDetails[i-1][row.key]" *ngIf="editableCell[rowIndex + '_'+ i]">
+            </ng-container>
+            <ng-container *ngIf="row.isChild">
+              <span *ngIf="!editableCell[rowIndex + '_'+ i]">
+                {{ tableDetails[i-1][row.parent][row.key] }}
+              </span>
+              <input type="text" [value]="tableDetails[i-1][row.parent][row.key]" *ngIf="editableCell[rowIndex + '_'+ i]">
+            </ng-container>
+          </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
