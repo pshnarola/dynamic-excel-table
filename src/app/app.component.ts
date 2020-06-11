@@ -1,189 +1,94 @@
-import { Component } from '@angular/core';
-import { PLAN_ROWS } from './plan-row.config';
+import { Component, OnInit } from '@angular/core';
+import { PLAN_ROWS, tableDetails } from './plan-row.config';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'basic-table';
-  tableDetails: any;
-  tableHeader = [];
-  // keys: any;
-  keys = [];
-  tableData = [];
-  planRowsConfig = PLAN_ROWS;
-  headers = ['key'];
-  editableCell = {};
+export class AppComponent implements OnInit {
+    title = 'basic-table';
+    tableDetails = tableDetails;
+    tableHeader = [];
+    // keys: any;
+    keys = [];
+    tableData = [];
+    planRowsConfig = PLAN_ROWS;
+    headers = ['Key Figure'];
+    editableCell = {};
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-    this.tableDetails = [
-      {
-        "columnName": "wk. 01",
-        "openingStock": 100,
-        "demandElements": {
-          "forecast": 97,
-          "salesOrder": 13
-        },
-        "totalCustomerDemandValue": 110,
-        "totalCustomerDemand": {
-          "distributionDemand": 57,
-          "bomDemand": 0
-        },
-        "dependentDemand": 57,
-        "totalDemand": 167,
-        "supplyElements": {
-          "plannedProductionReceipts": 0,
-          "confirmedProductionReceipts": 100,
-          "plannedDistributionReceipts": 0,
-          "confirmedDistributionReceipts": 0
-        },
-        "totalReceipts": 100,
-        "safetyStock": 484,
-        "netRequirement": 700
-      },
-      {
-        "columnName": "wk. 02",
-        "openingStock": 100,
-        "demandElements": {
-          "forecast": 97,
-          "salesOrder": 13
-        },
-        "totalCustomerDemandValue": 110,
-        "totalCustomerDemand": {
-          "distributionDemand": 57,
-          "bomDemand": 0
-        },
-        "dependentDemand": 57,
-        "totalDemand": 167,
-        "supplyElements": {
-          "plannedProductionReceipts": 0,
-          "confirmedProductionReceipts": 100,
-          "plannedDistributionReceipts": 0,
-          "confirmedDistributionReceipts": 0
-        },
-        "totalReceipts": 100,
-        "safetyStock": 484,
-        "netRequirement": 700
-      },
-      {
-        "columnName": "wk. 03",
-        "openingStock": 100,
-        "demandElements": {
-          "forecast": 97,
-          "salesOrder": 13
-        },
-        "totalCustomerDemandValue": 110,
-        "totalCustomerDemand": {
-          "distributionDemand": 57,
-          "bomDemand": 0
-        },
-        "dependentDemand": 57,
-        "totalDemand": 167,
-        "supplyElements": {
-          "plannedProductionReceipts": 0,
-          "confirmedProductionReceipts": 100,
-          "plannedDistributionReceipts": 0,
-          "confirmedDistributionReceipts": 0
-        },
-        "totalReceipts": 100,
-        "safetyStock": 484,
-        "netRequirement": 700
-      },
-      {
-        "columnName": "wk. 04",
-        "openingStock": 100,
-        "demandElements": {
-          "forecast": 97,
-          "salesOrder": 13
-        },
-        "totalCustomerDemandValue": 110,
-        "totalCustomerDemand": {
-          "distributionDemand": 57,
-          "bomDemand": 0
-        },
-        "dependentDemand": 57,
-        "totalDemand": 167,
-        "supplyElements": {
-          "plannedProductionReceipts": 0,
-          "confirmedProductionReceipts": 100,
-          "plannedDistributionReceipts": 0,
-          "confirmedDistributionReceipts": 0
-        },
-        "totalReceipts": 100,
-        "safetyStock": 484,
-        "netRequirement": 700
-      }
-    ]
-    this.createTableJson();
-  }
-
-  createTableJson() {
-    console.log('table data-->', this.tableDetails)
-    this.tableDetails.forEach(element => {
-      const json = {}
-      json['header'] = element.columnName
-      this.tableHeader.push(json);
-      this.headers.push(element.columnName);
-    });
-
-    this.tableDetails.forEach((element, index) => {
-      if (index == 0) {
-        Object.keys(element).forEach(key => {
-          if (Object.keys(element[key]).length !== 0 && key !== 'columnName') {
-            const json = {};
-            json['key'] = key;
-            json['isBold'] = true;
-            json['isParent'] = true;
-            json['isChild'] = false;
-            this.keys.push(json)
-            Object.keys(element[key]).forEach(child_key => {
-              const json = {};
-              json['key'] = child_key
-              json['isBold'] = false;
-              json['isParent'] = false;
-              json['isChild'] = true;
-              this.keys.push(json)
-            });
-          } else {
-            const json = {};
-            json['key'] = key;
-            json['isBold'] = true;
-            json['isParent'] = true;
-            json['isChild'] = false;
-            this.keys.push(json)
-          }
-        });
-      }
-    });
-
-    this.tableDetails.forEach(details => {
-      Object.keys(details).forEach(data => {
-        this.keys.forEach(key => {
-          if (Object.keys(details[data]).length !== 0 && data !== 'columnName') {
-            Object.keys(details[data]).forEach(child_key => {
-              if (child_key === key.key) {
-                key['value' + details.columnName] = details[data][child_key]
-              }
-            });
-          } else {
-            if (data === key.key) {
-              key['value' + details.columnName] = details[data]
-            }
-          }
-        });
-      })
-    });
-  }
-
-  makeEditable(rowConfig, rowIndex, index) {
-    this.editableCell = {};
-    if (rowConfig.isEditable && index > 0) {
-      this.editableCell[rowIndex + '_'+ index] = true;
+    ngOnInit() {
+        this.createTableJson();
     }
-    console.log(this.editableCell);
-  }
+
+    createTableJson() {
+        this.tableDetails.forEach(element => {
+            const json = {
+                header: element.columnName
+            };
+            this.tableHeader.push(json);
+            this.headers.push(element.columnName);
+        });
+
+        this.tableDetails.forEach((element, index) => {
+            if (index === 0) {
+                Object.keys(element).forEach(key => {
+                    if (Object.keys(element[key]).length !== 0 && key !== 'columnName') {
+                        const json = {
+                            key,
+                            isBold: true,
+                            isParent: true,
+                            isChild: false
+                        };
+                        this.keys.push(json);
+                        Object.keys(element[key]).forEach(childKey => {
+                            const childJson = {
+                                key: childKey,
+                                isBold: false,
+                                isParent: false,
+                                isChild: true
+                            };
+                            this.keys.push(childJson);
+                        });
+                    } else {
+                        const json = {
+                            key,
+                            isBold: true,
+                            isParent: true,
+                            isChild: false
+                        };
+                        this.keys.push(json);
+                    }
+                });
+            }
+        });
+
+        this.tableDetails.forEach(details => {
+            Object.keys(details).forEach(data => {
+                this.keys.forEach(key => {
+                    if (Object.keys(details[data]).length !== 0 && data !== 'columnName') {
+                        Object.keys(details[data]).forEach(childKey => {
+                            if (childKey === key.key) {
+                                key['value' + details.columnName] = details[data][childKey]
+                            }
+                        });
+                    } else {
+                        if (data === key.key) {
+                            key['value' + details.columnName] = details[data]
+                        }
+                    }
+                });
+            });
+        });
+    }
+
+    makeEditable(rowConfig, rowIndex, index) {
+        console.log('hello');
+        this.editableCell = {};
+        if (rowConfig.isEditable && index > 0) {
+            this.editableCell[rowIndex + '_' + index] = true;
+        }
+    }
 }

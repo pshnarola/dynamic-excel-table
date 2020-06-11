@@ -1,98 +1,310 @@
 export const PLAN_ROWS = [
     {
-        "key": "openingStock",
-        "isBold": true,
-        "isChild": false
+        key: 'openingStock',
+        text: 'Opening Stock',
+        isBold: true,
+        isChild: false
     },
     {
-        "key": "supplyElements",
-        "isBold": true,
-        "isChild": false,
-        "noValue": true,
+        key: 'demandElements',
+        text: 'Demand Elements',
+        isBold: true,
+        isChild: false,
+        noValue: true
     },
     {
-        "key": "plannedProductionReceipts",
-        "isBold": false,
-        "isChild": true,
-        "parent": "supplyElements"
+        key: 'forecast',
+        text: 'Forecast',
+        isBold: false,
+        isChild: true,
+        parent: 'demandElements'
     },
     {
-        "key": "confirmedProductionReceipts",
-        "isBold": false,
-        "isChild": true,
-        "parent": "supplyElements"
+        key: 'salesOrder',
+        text: 'Sales Order',
+        isBold: false,
+        isChild: true,
+        parent: 'demandElements'
     },
     {
-        "key": "plannedDistributionReceipts",
-        "isBold": false,
-        "isChild": true,
-        "parent": "supplyElements"
+        key: 'totalCustomerDemandValue',
+        text: 'Total Customer Demand',
+        isBold: true,
+        isChild: false
     },
     {
-        "key": "confirmedDistributionReceipts",
-        "isBold": false,
-        "isChild": true,
-        "parent": "supplyElements"
+        key: 'distributionDemand',
+        text: 'Distribution Demand',
+        isBold: false,
+        isChild: true,
+        parent: 'totalCustomerDemand'
     },
     {
-        "key": "demandElements",
-        "isBold": true,
-        "isChild": false,
-        "noValue": true
+        key: 'bomDemand',
+        text: 'Bom Demand',
+        isBold: false,
+        isChild: true,
+        parent: 'totalCustomerDemand'
     },
     {
-        "key": "forecast",
-        "isBold": false,
-        "isChild": true,
-        "parent": "demandElements"
+        key: 'dependentDemand',
+        text: 'Dependent Demand',
+        isBold: true,
+        isChild: false
     },
     {
-        "key": "salesOrder",
-        "isBold": false,
-        "isChild": true,
-        "parent": "demandElements"
+        key: 'totalDemand',
+        text: 'Total Demand',
+        isBold: true,
+        isChild: false
     },
     {
-        "key": "totalCustomerDemandValue",
-        "isBold": true,
-        "isChild": false
+        key: 'supplyElements',
+        text: 'Supply Elements',
+        isBold: true,
+        isChild: false,
+        noValue: true,
     },
     {
-        "key": "distributionDemand",
-        "isBold": false,
-        "isChild": true,
-        "parent": "totalCustomerDemand"
+        key: 'plannedProductionReceipts',
+        text: 'Planned Production Receipts',
+        isBold: false,
+        isChild: true,
+        parent: 'supplyElements'
     },
     {
-        "key": "bomDemand",
-        "isBold": false,
-        "isChild": true,
-        "parent": "totalCustomerDemand"
+        key: 'confirmedProductionReceipts',
+        text: 'Confirmed Production Receipts',
+        isBold: false,
+        isChild: true,
+        parent: 'supplyElements'
     },
     {
-        "key": "dependentDemand",
-        "isBold": true,
-        "isChild": false
+        key: 'plannedDistributionReceipts',
+        text: 'Planned Distribution Receipts',
+        isBold: false,
+        isChild: true,
+        parent: 'supplyElements'
     },
     {
-        "key": "totalDemand",
-        "isBold": true,
-        "isChild": false
+        key: 'confirmedDistributionReceipts',
+        text: 'Confirmed Distribution Receipts',
+        isBold: false,
+        isChild: true,
+        parent: 'supplyElements'
     },
     {
-        "key": "totalReceipts",
-        "isBold": true,
-        "isChild": false,
-        "isEditable": true
+        key: 'totalReceipts',
+        text: 'Total Receipts',
+        isBold: true,
+        isChild: false,
+        isEditable: true
     },
     {
-        "key": "safetyStock",
-        "isBold": true,
-        "isChild": false
+        key: 'safetyStock',
+        text: 'Safety Stock',
+        isBold: true,
+        isChild: false
     },
     {
-        "key": "netRequirement",
-        "isBold": true,
-        "isChild": false
+        key: 'netRequirement',
+        text: 'Net Requirement',
+        isBold: true,
+        isChild: false
     }
-]
+];
+
+export const tableDetails = [
+    {
+        columnName: 'wk. 01',
+        openingStock: 100,
+        demandElements: {
+            forecast: 97,
+            salesOrder: 13
+        },
+        totalCustomerDemandValue: 110,
+        totalCustomerDemand: {
+            distributionDemand: 57,
+            bomDemand: 0
+        },
+        dependentDemand: 57,
+        totalDemand: 167,
+        supplyElements: {
+            plannedProductionReceipts: 0,
+            confirmedProductionReceipts: 100,
+            plannedDistributionReceipts: 0,
+            confirmedDistributionReceipts: 0
+        },
+        totalReceipts: 100,
+        safetyStock: 484,
+        netRequirement: 700
+    },
+    {
+        columnName: 'wk. 02',
+        openingStock: 100,
+        demandElements: {
+            forecast: 97,
+            salesOrder: 13
+        },
+        totalCustomerDemandValue: 110,
+        totalCustomerDemand: {
+            distributionDemand: 57,
+            bomDemand: 0
+        },
+        dependentDemand: 57,
+        totalDemand: 167,
+        supplyElements: {
+            plannedProductionReceipts: 0,
+            confirmedProductionReceipts: 100,
+            plannedDistributionReceipts: 0,
+            confirmedDistributionReceipts: 0
+        },
+        totalReceipts: 100,
+        safetyStock: 484,
+        netRequirement: 700
+    },
+    {
+        columnName: 'wk. 03',
+        openingStock: 100,
+        demandElements: {
+            forecast: 97,
+            salesOrder: 13
+        },
+        totalCustomerDemandValue: 110,
+        totalCustomerDemand: {
+            distributionDemand: 57,
+            bomDemand: 0
+        },
+        dependentDemand: 57,
+        totalDemand: 167,
+        supplyElements: {
+            plannedProductionReceipts: 0,
+            confirmedProductionReceipts: 100,
+            plannedDistributionReceipts: 0,
+            confirmedDistributionReceipts: 0
+        },
+        totalReceipts: 100,
+        safetyStock: 484,
+        netRequirement: 700
+    },
+    {
+        columnName: 'wk. 04',
+        openingStock: 100,
+        demandElements: {
+            forecast: 97,
+            salesOrder: 13
+        },
+        totalCustomerDemandValue: 110,
+        totalCustomerDemand: {
+            distributionDemand: 57,
+            bomDemand: 0
+        },
+        dependentDemand: 57,
+        totalDemand: 167,
+        supplyElements: {
+            plannedProductionReceipts: 0,
+            confirmedProductionReceipts: 100,
+            plannedDistributionReceipts: 0,
+            confirmedDistributionReceipts: 0
+        },
+        totalReceipts: 100,
+        safetyStock: 484,
+        netRequirement: 700
+    },
+    {
+        columnName: 'wk. 05',
+        openingStock: 100,
+        demandElements: {
+            forecast: 97,
+            salesOrder: 13
+        },
+        totalCustomerDemandValue: 110,
+        totalCustomerDemand: {
+            distributionDemand: 57,
+            bomDemand: 0
+        },
+        dependentDemand: 57,
+        totalDemand: 167,
+        supplyElements: {
+            plannedProductionReceipts: 0,
+            confirmedProductionReceipts: 100,
+            plannedDistributionReceipts: 0,
+            confirmedDistributionReceipts: 0
+        },
+        totalReceipts: 100,
+        safetyStock: 484,
+        netRequirement: 700
+    },
+    {
+        columnName: 'wk. 06',
+        openingStock: 100,
+        demandElements: {
+            forecast: 97,
+            salesOrder: 13
+        },
+        totalCustomerDemandValue: 110,
+        totalCustomerDemand: {
+            distributionDemand: 57,
+            bomDemand: 0
+        },
+        dependentDemand: 57,
+        totalDemand: 167,
+        supplyElements: {
+            plannedProductionReceipts: 0,
+            confirmedProductionReceipts: 100,
+            plannedDistributionReceipts: 0,
+            confirmedDistributionReceipts: 0
+        },
+        totalReceipts: 100,
+        safetyStock: 484,
+        netRequirement: 700
+    },
+    {
+        columnName: 'wk. 07',
+        openingStock: 100,
+        demandElements: {
+            forecast: 97,
+            salesOrder: 13
+        },
+        totalCustomerDemandValue: 110,
+        totalCustomerDemand: {
+            distributionDemand: 57,
+            bomDemand: 0
+        },
+        dependentDemand: 57,
+        totalDemand: 167,
+        supplyElements: {
+            plannedProductionReceipts: 0,
+            confirmedProductionReceipts: 100,
+            plannedDistributionReceipts: 0,
+            confirmedDistributionReceipts: 0
+        },
+        totalReceipts: 100,
+        safetyStock: 484,
+        netRequirement: 700
+    },
+    {
+        columnName: 'wk. 08',
+        openingStock: 100,
+        demandElements: {
+            forecast: 97,
+            salesOrder: 13
+        },
+        totalCustomerDemandValue: 110,
+        totalCustomerDemand: {
+            distributionDemand: 57,
+            bomDemand: 0
+        },
+        dependentDemand: 57,
+        totalDemand: 167,
+        supplyElements: {
+            plannedProductionReceipts: 0,
+            confirmedProductionReceipts: 100,
+            plannedDistributionReceipts: 0,
+            confirmedDistributionReceipts: 0
+        },
+        totalReceipts: 100,
+        safetyStock: 484,
+        netRequirement: 700
+    }
+];
