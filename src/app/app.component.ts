@@ -10,7 +10,6 @@ export class AppComponent {
   title = 'basic-table';
   tableDetails: any;
   tableHeader = [];
-  // keys: any;
   keys = [];
   tableData = [];
   planRowsConfig = PLAN_ROWS;
@@ -187,7 +186,9 @@ export class AppComponent {
     console.log(this.editableCell);
   }
 
-  onBlurMethod(){
+
+  onBlurMethod( rowIndex, index){
+    this.editableCell[rowIndex + '_'+ index] = false;
     console.log('blur data-->', this.tableDetails)
    }
 }

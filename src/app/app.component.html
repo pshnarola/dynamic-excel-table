@@ -28,6 +28,31 @@
     <tr *ngFor="let row of planRowsConfig; let rowIndex = index;">
       <td [ngClass]="{'text-bold': (i==0 && row.isBold), 'child-td': (i==0 &&row.isChild)}"
         *ngFor="let header of headers;let i = index" (click)="makeEditable(row, rowIndex, i)">
+        <ng-container *ngIf="i==0;else elseBlock">
+          {{row.key}}
+        </ng-container>
+        <ng-template #elseBlock>
+          <ng-container *ngIf="!row.isChild; else ChildBlock">
+            <span *ngIf="!editableCell[rowIndex + '_'+ i]">
+              {{ (!row.noValue) ? tableDetails[i-1][row.key] : '' }}
+            </span>
+            <input type="text" [value]="tableDetails[i-1][row.key]" [(ngModel)] = "tableDetails[i-1][row.key]" (blur)="onBlurMethod(rowIndex, i)"
+            *ngIf="editableCell[rowIndex + '_'+ i]" >
+          </ng-container>
+          <ng-template #ChildBlock>
+            <span *ngIf="!editableCell[rowIndex + '_'+ i]">
+              {{ tableDetails[i-1][row.parent][row.key] }}
+            </span>
+            <input type="text" [value]="tableDetails[i-1][row.parent][row.key]" [(ngModel)] = "tableDetails[i-1][row.parent][row.key]"  
+            *ngIf="editableCell[rowIndex + '_'+ i]" (blur)="onBlurMethod( rowIndex, i)">
+          </ng-template>
+        </ng-template>
+      </td>
+    </tr>
+
+    <!-- <tr *ngFor="let row of planRowsConfig; let rowIndex = index;">
+      <td [ngClass]="{'text-bold': (i==0 && row.isBold), 'child-td': (i==0 &&row.isChild)}"
+        *ngFor="let header of headers;let i = index" (click)="makeEditable(row, rowIndex, i)">
           <ng-container *ngIf="i==0;else elseBlock">
             {{row.key}}
           </ng-container>
@@ -48,6 +73,6 @@
             </ng-container>
           </ng-template>
       </td>
-    </tr>
+    </tr> -->
   </tbody>
 </table>
