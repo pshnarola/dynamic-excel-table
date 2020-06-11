@@ -114,9 +114,101 @@ export const PLAN_ROWS = [
     }
 ];
 
+export const PLAN_COLUMNS = {
+    columnIdentifier: 'columnName',
+    columns: [
+        {
+            key: 'key',
+            text: 'Key Figure',
+            textAlign: 'left',
+            isEditable: true
+        },
+        {
+            key: 'unit',
+            text: 'Unit',
+            isBold: true,
+            textAlign: 'left',
+            isEditable: false
+        },
+        {
+            key: 'wk_01',
+            text: 'Week 01',
+            textAlign: 'right',
+            isEditable: true
+        },
+        {
+            key: 'wk_02',
+            text: 'Week 02',
+            textAlign: 'right',
+            isEditable: true
+        },
+        {
+            key: 'wk_03',
+            text: 'Week 03',
+            textAlign: 'right',
+            isEditable: true
+        },
+        {
+            key: 'wk_04',
+            text: 'Week 04',
+            textAlign: 'right',
+            isEditable: true
+        },
+        {
+            key: 'wk_05',
+            text: 'Week 05',
+            textAlign: 'right',
+            isEditable: true
+        },
+        {
+            key: 'wk_06',
+            text: 'Week 06',
+            textAlign: 'right',
+            isEditable: true
+        },
+        {
+            key: 'wk_07',
+            text: 'Week 07',
+            textAlign: 'right',
+            isEditable: true
+        },
+        {
+            key: 'wk_08',
+            text: 'Week 08',
+            textAlign: 'right',
+            isEditable: true
+        }
+    ]
+};
+
+export const unitRes = {
+    columnName: 'unit',
+    openingStock: 'EA',
+    demandElements: {
+        forecast: 'EA',
+        salesOrder: 'EA',
+    },
+    totalCustomerDemandValue: 'EA',
+    totalCustomerDemand: {
+        distributionDemand: 'EA',
+        bomDemand: 'EA',
+    },
+    dependentDemand: 'EA',
+    totalDemand: 'EA',
+    supplyElements: {
+        plannedProductionReceipts: 'EA',
+        confirmedProductionReceipts: 'EA',
+        plannedDistributionReceipts: 'EA',
+        confirmedDistributionReceipts: 'EA',
+    },
+    totalReceipts: 'EA',
+    safetyStock: 'EA',
+    netRequirement: 'EA',
+};
+
 export const tableDetails = [
     {
-        columnName: 'wk. 01',
+        columnName: 'wk_01',
         openingStock: 100,
         demandElements: {
             forecast: 97,
@@ -140,7 +232,7 @@ export const tableDetails = [
         netRequirement: 700
     },
     {
-        columnName: 'wk. 02',
+        columnName: 'wk_02',
         openingStock: 100,
         demandElements: {
             forecast: 97,
@@ -164,7 +256,7 @@ export const tableDetails = [
         netRequirement: 700
     },
     {
-        columnName: 'wk. 03',
+        columnName: 'wk_03',
         openingStock: 100,
         demandElements: {
             forecast: 97,
@@ -188,7 +280,7 @@ export const tableDetails = [
         netRequirement: 700
     },
     {
-        columnName: 'wk. 04',
+        columnName: 'wk_04',
         openingStock: 100,
         demandElements: {
             forecast: 97,
@@ -212,7 +304,7 @@ export const tableDetails = [
         netRequirement: 700
     },
     {
-        columnName: 'wk. 05',
+        columnName: 'wk_05',
         openingStock: 100,
         demandElements: {
             forecast: 97,
@@ -236,7 +328,7 @@ export const tableDetails = [
         netRequirement: 700
     },
     {
-        columnName: 'wk. 06',
+        columnName: 'wk_06',
         openingStock: 100,
         demandElements: {
             forecast: 97,
@@ -260,7 +352,7 @@ export const tableDetails = [
         netRequirement: 700
     },
     {
-        columnName: 'wk. 07',
+        columnName: 'wk_07',
         openingStock: 100,
         demandElements: {
             forecast: 97,
@@ -284,8 +376,8 @@ export const tableDetails = [
         netRequirement: 700
     },
     {
-        columnName: 'wk. 08',
-        openingStock: 100,
+        columnName: 'wk_08',
+        openingStock: 800,
         demandElements: {
             forecast: 97,
             salesOrder: 13

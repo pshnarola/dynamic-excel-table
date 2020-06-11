@@ -16,38 +16,51 @@
 </table> 
 -->
 
-<table id="customers">
+
+<table class="customers">
     <thead>
         <tr>
-            <th *ngFor="let header of headers; let columnIndex = index" [ngClass]="{'text-left w-auto': columnIndex === 0}">
-                {{header}}
+            <th *ngFor="let column of columnConfig.columns; let columnIndex = index"
+                [ngClass]="{'text-left w-auto': columnIndex === 0}">
+                {{column.text}}
             </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let row of planRowsConfig; let rowIndex = index;">
-            <td *ngFor="let header of headers;let columnIndex= index" [ngClass]="{'w-auto': columnIndex === 0}"
-                (click)="makeEditable(row, rowIndex, columnIndex)">
+            <td *ngFor="let column of columnConfig.columns;let columnIndex= index"
+                [ngClass]=" {
+                    'w-auto': (columnIndex === 0),
+                    'input-td': editableCell[rowIndex + '_'+ columnIndex],
+                    'text-right': column.textAlign === 'right',
+                    'text-left': column.textAlign === 'left',
+                    'text-center': column.textAlign === 'center'
+                }"
+                (click)="makeEditable(row, column, rowIndex, columnIndex)">
                 <ng-container *ngIf="columnIndex==0;else elseBlock">
                     <p [ngClass]="{'text-bold': row.isBold, 'child-td': row.isChild}">
                         {{row.text}}
                     </p>
                 </ng-container>
                 <ng-template #elseBlock>
-                    <ng-container *ngIf="!row.isChild">
-                        <p class="text-right" *ngIf="!editableCell[rowIndex + '_'+ columnIndex]">
-                            {{ (!row.noValue) ? tableDetails[columnIndex-1][row.key] : '' }}
-                        </p>
-                        <input class="text-right" type="text" [value]="tableDetails[columnIndex-1][row.key]"
-                            *ngIf="editableCell[rowIndex + '_'+ columnIndex]">
-                    </ng-container>
-                    <ng-container *ngIf="row.isChild">
-                        <p class="text-right" *ngIf="!editableCell[rowIndex + '_'+ columnIndex]">
-                            {{ tableDetails[columnIndex-1][row.parent][row.key] }}
-                        </p>
-                        <input class="text-right" type="text" [value]="tableDetails[columnIndex-1][row.parent][row.key]"
-                            *ngIf="editableCell[rowIndex + '_'+ columnIndex]">
-                    </ng-container>
+                    <div *ngIf="!row.noValue" [ngClass]="{'text-bold': row.isBold && column.isBold}">
+                        <ng-container *ngIf="!row.isChild">
+                            <p *ngIf="!editableCell[rowIndex + '_'+ columnIndex]">
+                                {{ tableDetails[columnIndexAPI[column.key]][row.key] }}
+                            </p>
+                            <input [ngClass]=" 'text-' + column.textAlign" type="text"
+                                [value]="tableDetails[columnIndexAPI[column.key]][row.key]"
+                                *ngIf="editableCell[rowIndex + '_'+ columnIndex]">
+                        </ng-container>
+                        <ng-container *ngIf="row.isChild">
+                            <p *ngIf="!editableCell[rowIndex + '_'+ columnIndex]">
+                                {{ tableDetails[columnIndexAPI[column.key]][row.parent][row.key] }}
+                            </p>
+                            <input [ngClass]=" 'text-' + column.textAlign" type="text"
+                                [value]="tableDetails[columnIndexAPI[column.key]][row.parent][row.key]"
+                                *ngIf="editableCell[rowIndex + '_'+ columnIndex]">
+                        </ng-container>
+                    </div>
                 </ng-template>
             </td>
         </tr>
