@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~handsontable/dist/handsontable.full.css';
+
 body {
     font-family: Verdana, Helvetica, Arial, FreeSans, sans-serif;
 }
@@ -130,4 +131,18 @@ hr {
 
 .excel tbody tr:last-child td {
     border-bottom: 1px solid #ccc;
+}
+
+.excel tr:nth-child(1)>td,
+.handsontable table.htCore tr:nth-child(1)>td {
+    font-weight: bold;
+    color: #222;
+}
+
+.handsontable table.htCore {
+    font-size: 12px;
+}
+
+.handsontable .htDimmed{
+    color: #222;
 }

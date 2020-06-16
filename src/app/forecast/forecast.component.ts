@@ -10,6 +10,10 @@ export class ForecastComponent implements OnInit {
 
     forecastData = [
         {
+            bucket: 'PLANBUCKET',
+            forecast: 'FORECAST'
+        },
+        {
             bucket: 'wk01',
             forecast: ''
         },
@@ -26,15 +30,28 @@ export class ForecastComponent implements OnInit {
             forecast: ''
         }
     ];
-    excelSaved = false;
     hotSettings: Handsontable.GridSettings = {
+        data: this.forecastData,
         colHeaders: true,
-        nestedHeaders: [
-            ['A', 'B'],
-            ['PLANBUCKET', 'FORECASTE']
-        ]
-        // colHeaders:  ['PLANBUCKET', 'FORECASTE'],
-
+        rowHeaders: true,
+        columns: [
+            {
+                data: 'bucket',
+                readOnly: true
+            },
+            {
+                data: 'forecast',
+                type: 'numeric'
+            },
+        ],
+        maxRows: this.forecastData.length,
+        cells: (row, column, prop) => {
+            const cellProperties: any = {};
+            if (row === 0) {
+                cellProperties.readOnly = true;
+            }
+            return cellProperties;
+        }
     };
     constructor() { }
 
@@ -57,5 +74,4 @@ export class ForecastComponent implements OnInit {
             this.forecastData.push(element);
         });
     }
-
 }

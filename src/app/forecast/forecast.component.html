@@ -8,33 +8,25 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td class="row-number">
-                <span>
-                    1
-                </span>
-            </td>
-            <td class="text-bold">PLANBUCKET</td>
-            <td class="text-bold">FORECAST</td>
-        </tr>
         <tr *ngFor="let forecast of forecastData;let i = index">
             <td class="row-number">
                 <span>
-                    {{ i+2 }}
+                    {{ i+1 }}
                 </span>
             </td>
             <td style="width: 100px;">{{ forecast.bucket }}</td>
             <td style="width: 100px;">
-                <input type="text" (paste)="onPaste($event, i)" [(ngModel)]="forecast.forecast">
+                <input type="text" (paste)="onPaste($event, i)" [(ngModel)]="forecast.forecast" *ngIf="i !== 0">
+                <span>{{forecast.forecast}}</span>
             </td>
         </tr>
     </tbody>
 </table>
 
+<hr>
+
+<h1>Handson Table Implementation</h1>
+<hot-table #hot class="hot" [settings]="hotSettings">
+</hot-table>
 
 <hr>
-<h1>Handson Table Implementation</h1>
-<hot-table class="hot" [data]="forecastData" [settings]="hotSettings" [colHeaders]="true" [rowHeaders]="true">
-    <hot-column data="bucket" [readOnly]="true" title="PLANBUCKET"></hot-column>
-    <hot-column data="forecast" title="FORECAST"></hot-column>
-</hot-table>
