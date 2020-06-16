@@ -31,4 +31,10 @@
     </tbody>
 </table>
 
+
 <hr>
+<h1>Handson Table Implementation</h1>
+<hot-table class="hot" [data]="forecastData" [settings]="hotSettings" [colHeaders]="true" [rowHeaders]="true">
+    <hot-column data="bucket" [readOnly]="true" title="PLANBUCKET"></hot-column>
+    <hot-column data="forecast" title="FORECAST"></hot-column>
+</hot-table>

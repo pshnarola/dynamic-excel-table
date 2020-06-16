@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Handsontable from 'handsontable';
 
 @Component({
     selector: 'app-forecast',
@@ -26,6 +27,15 @@ export class ForecastComponent implements OnInit {
         }
     ];
     excelSaved = false;
+    hotSettings: Handsontable.GridSettings = {
+        colHeaders: true,
+        nestedHeaders: [
+            ['A', 'B'],
+            ['PLANBUCKET', 'FORECASTE']
+        ]
+        // colHeaders:  ['PLANBUCKET', 'FORECASTE'],
+
+    };
     constructor() { }
 
     ngOnInit() {
