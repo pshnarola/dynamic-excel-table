@@ -1,4 +1,4 @@
-<table class="customers">
+<table class="excel w-100">
     <thead>
         <tr>
             <th *ngFor="let column of columnConfig.columns; let columnIndex = index"
@@ -11,6 +11,7 @@
         <tr *ngFor="let row of planRowsConfig; let rowIndex = index;">
             <td *ngFor="let column of columnConfig.columns;let columnIndex= index" [ngClass]=" {
                     'w-auto': (columnIndex === 0),
+                    'w-100px': (columnIndex !== 0),
                     'input-td': editableCell[rowIndex + '_'+ columnIndex],
                     'text-right': column.textAlign === 'right',
                     'text-left': column.textAlign === 'left',

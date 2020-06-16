@@ -48,28 +48,36 @@ hr {
     text-align: right !important;
 }
 
-.customers td .child-td {
+.excel td .child-td {
     padding-left: 20px;
 }
 
-.customers p {
+.excel p {
     margin: 0;
 }
 
-.customers td.input-td {
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
+// .customers td.input-td {
+//     padding-top: 3px;
+//     padding-bottom: 3px;
+// }
 
-.customers td input {
-    width: 78px;
-    height: 16px;
-    padding: 0 5px;
-    line-height: 16px;
-}
+// .customers td input {
+//     width: 78px;
+//     height: 16px;
+//     padding: 0 5px;
+//     line-height: 16px;
+// }
 
 .w-auto {
     width: auto !important;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.w-100px {
+    width: 100px !important;
 }
 
 .excel {
@@ -77,6 +85,7 @@ hr {
     font-size: 12px;
     border-collapse: separate;
     border-spacing: 0;
+    color: #222;
 }
 
 .excel th,
@@ -88,6 +97,7 @@ hr {
     line-height: 21px;
     overflow: hidden;
     outline-width: 0;
+    padding: 0 4px;
 }
 
 .excel tr th:first-child,
@@ -100,10 +110,6 @@ hr {
     color: #222;
     font-weight: 400;
     white-space: nowrap;
-}
-
-.excel td {
-    padding: 0 4px;
 }
 
 .excel td.row-number {
