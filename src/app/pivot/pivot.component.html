@@ -1,0 +1,49 @@
+<table class="customers">
+    <thead>
+        <tr>
+            <th *ngFor="let column of columnConfig.columns; let columnIndex = index"
+                [ngClass]="{'text-left w-auto': columnIndex === 0}">
+                {{column.text}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of planRowsConfig; let rowIndex = index;">
+            <td *ngFor="let column of columnConfig.columns;let columnIndex= index" [ngClass]=" {
+                    'w-auto': (columnIndex === 0),
+                    'input-td': editableCell[rowIndex + '_'+ columnIndex],
+                    'text-right': column.textAlign === 'right',
+                    'text-left': column.textAlign === 'left',
+                    'text-center': column.textAlign === 'center'
+                }" (click)="makeEditable(row, column, rowIndex, columnIndex)">
+                <ng-container *ngIf="columnIndex==0;else elseBlock">
+                    <p [ngClass]="{'text-bold': row.isBold, 'child-td': row.isChild}">
+                        {{row.text}}
+                    </p>
+                </ng-container>
+                <ng-template #elseBlock>
+                    <div *ngIf="!row.noValue" [ngClass]="{'text-bold': row.isBold && column.isBold}">
+                        <ng-container *ngIf="!row.isChild">
+                            <p *ngIf="!editableCell[rowIndex + '_'+ columnIndex]">
+                                {{ tableDetails[columnIndexAPI[column.key]][row.key] }}
+                            </p>
+                            <input [ngClass]=" 'text-' + column.textAlign" type="text"
+                                [value]="tableDetails[columnIndexAPI[column.key]][row.key]"
+                                [(ngModel)]="tableDetails[columnIndexAPI[column.key]][row.key]"
+                                *ngIf="editableCell[rowIndex + '_'+ columnIndex]" (blur)="onBlurMethod(  rowIndex, i)">
+                        </ng-container>
+                        <ng-container *ngIf="row.isChild">
+                            <p *ngIf="!editableCell[rowIndex + '_'+ columnIndex]">
+                                {{ tableDetails[columnIndexAPI[column.key]][row.parent][row.key] }}
+                            </p>
+                            <input [ngClass]=" 'text-' + column.textAlign" type="text"
+                                [value]="tableDetails[columnIndexAPI[column.key]][row.parent][row.key]"
+                                [(ngModel)]="tableDetails[columnIndexAPI[column.key]][row.parent][row.key]"
+                                *ngIf="editableCell[rowIndex + '_'+ columnIndex]" (blur)="onBlurMethod( rowIndex, i)">
+                        </ng-container>
+                    </div>
+                </ng-template>
+            </td>
+        </tr>
+    </tbody>
+</table>

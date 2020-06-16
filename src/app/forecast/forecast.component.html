@@ -1,0 +1,34 @@
+<h1>Custom Implementation</h1>
+<table id="example" class="display excel">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>A</th>
+            <th>B</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="row-number">
+                <span>
+                    1
+                </span>
+            </td>
+            <td class="text-bold">PLANBUCKET</td>
+            <td class="text-bold">FORECAST</td>
+        </tr>
+        <tr *ngFor="let forecast of forecastData;let i = index">
+            <td class="row-number">
+                <span>
+                    {{ i+2 }}
+                </span>
+            </td>
+            <td style="width: 100px;">{{ forecast.bucket }}</td>
+            <td style="width: 100px;">
+                <input type="text" (paste)="onPaste($event, i)" [(ngModel)]="forecast.forecast">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
