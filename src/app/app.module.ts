@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { PivotComponent } from './pivot/pivot.component';
 import { ForecastComponent } from './forecast/forecast.component';
-
+import { HotTableModule } from '@handsontable/angular';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { ForecastComponent } from './forecast/forecast.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HotTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
