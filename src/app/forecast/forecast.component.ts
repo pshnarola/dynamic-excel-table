@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Handsontable from 'handsontable';
+import * as jexcel from "jexcel";
 
 @Component({
     selector: 'app-forecast',
@@ -7,12 +8,12 @@ import Handsontable from 'handsontable';
     styleUrls: ['./forecast.component.scss']
 })
 export class ForecastComponent implements OnInit {
-
+    @ViewChild("spreadsheet", { static: true }) spreadsheet: ElementRef;
     forecastData = [
-        {
-            bucket: 'PLANBUCKET',
-            forecast: 'FORECAST'
-        },
+        // {
+        //     bucket: 'PLANBUCKET',
+        //     forecast: 'FORECAST'
+        // },
         {
             bucket: 'wk01',
             forecast: ''
@@ -53,9 +54,40 @@ export class ForecastComponent implements OnInit {
             return cellProperties;
         }
     };
+    columnObj = [];
+
     constructor() { }
 
     ngOnInit() {
+        this.columnObj = [
+            { width: 100, name: 'bucket', title: 'Bucket', readOnly: true },
+            { width: 100, name: 'forecast', title: 'Forecast', type: 'numeric', decimal: ',' }
+        ];
+
+        jexcel(this.spreadsheet.nativeElement, {
+            data: this.forecastData,
+            columns: this.columnObj,
+            minDimensions: [2, 2],
+            totalRows: this.forecastData.length,
+            contextMenu: false,
+            updateTable: function (el, cell, x, y, source, value, id, ) {
+                // if (x == 1 && y == 0) {
+                //     cell.classList.add('readonly');
+                // }
+            },
+            onchange: (instance, cell, colIndex, rowIndex, value, oldValue) => {
+                if (this.columnObj[colIndex] && this.forecastData[rowIndex]) {
+                    if (rowIndex < this.forecastData.length) {
+                        console.log('rowIndex = ', value);
+                        const columnName = this.columnObj[colIndex].name;
+                        this.forecastData[rowIndex][columnName] = value;
+                    }
+                }
+            },
+            onbeforeinsertrow: function (rowIndex, colIndex, rowHeaders) {
+                // console.log('length', this.forecastData.length)
+            },
+        });
     }
 
     onPaste(event: ClipboardEvent, index) {

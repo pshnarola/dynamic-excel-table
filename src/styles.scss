@@ -146,3 +146,8 @@ hr {
 .handsontable .htDimmed{
     color: #222;
 }
+
+.jexcel > tbody > tr > td.readonly {
+    color: #222;
+    text-align: left;
+}
