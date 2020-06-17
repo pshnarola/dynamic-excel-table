@@ -16,8 +16,7 @@
             </td>
             <td style="width: 100px;">{{ forecast.bucket }}</td>
             <td style="width: 100px;">
-                <input type="text" (paste)="onPaste($event, i)" [(ngModel)]="forecast.forecast" *ngIf="i !== 0">
-                <span>{{forecast.forecast}}</span>
+                <input type="text" (paste)="onPaste($event, i)" [(ngModel)]="forecast.forecast">
             </td>
         </tr>
     </tbody>
@@ -32,7 +31,7 @@
 <hr>
 
 <h1>Jexcel</h1>
-<div #spreadsheet class="excel"></div>
+<div #spreadsheet></div>
 
-
+<hr>
 {{forecastData | json}}

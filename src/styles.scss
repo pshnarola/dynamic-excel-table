@@ -81,7 +81,8 @@ hr {
     width: 100px !important;
 }
 
-.excel {
+.excel,
+.jexcel {
     font-family: Verdana, Helvetica, Arial, FreeSans, sans-serif;
     font-size: 12px;
     border-collapse: separate;
@@ -90,7 +91,9 @@ hr {
 }
 
 .excel th,
-.excel td {
+.excel td,
+.jexcel th,
+.jexcel td {
     border-top: 1px solid #ccc;
     border-right: 1px solid #ccc;
     height: 22px;
@@ -98,7 +101,7 @@ hr {
     line-height: 21px;
     overflow: hidden;
     outline-width: 0;
-    padding: 0 4px;
+    padding: 0 4px !important;
 }
 
 .excel tr th:first-child,
@@ -109,8 +112,13 @@ hr {
 .excel th {
     background-color: #edeef0;
     color: #222;
-    font-weight: 400;
+    font-weight: bold;
     white-space: nowrap;
+}
+
+table thead td,
+table thead td {
+    font-weight: bold;
 }
 
 .excel td.row-number {
@@ -135,7 +143,6 @@ hr {
 
 .excel tr:nth-child(1)>td,
 .handsontable table.htCore tr:nth-child(1)>td {
-    font-weight: bold;
     color: #222;
 }
 
@@ -143,11 +150,15 @@ hr {
     font-size: 12px;
 }
 
-.handsontable .htDimmed{
+.handsontable .htDimmed {
     color: #222;
 }
 
-.jexcel > tbody > tr > td.readonly {
+.handsontable span.colHeader {
+    font-weight: bold;
+}
+
+.jexcel>tbody>tr>td.readonly {
     color: #222;
     text-align: left;
 }

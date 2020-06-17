@@ -28,6 +28,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "./node_modules/jexcel/dist/jexcel.css",
                             "src/styles.scss"
                         ],
                         "scripts": []
