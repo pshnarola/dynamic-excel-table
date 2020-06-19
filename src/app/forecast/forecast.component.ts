@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Handsontable from 'handsontable';
 import * as jexcel from 'jexcel';
+import { SpreadsheetComponent, CellEditEventArgs } from '@syncfusion/ej2-angular-spreadsheet';
 
 @Component({
     selector: 'app-forecast',
@@ -9,6 +10,7 @@ import * as jexcel from 'jexcel';
 })
 export class ForecastComponent implements OnInit {
     @ViewChild('spreadsheet', { static: true }) spreadsheet: ElementRef;
+    @ViewChild('spreadsheetSync', { static: true })spreadsheetObj: SpreadsheetComponent;
     forecastData = [
         {
             bucket: 'wk01',
@@ -75,26 +77,18 @@ export class ForecastComponent implements OnInit {
                 // }
             },
             onchange: (instance, cell, colIndex, rowIndex, value, oldValue) => {
-                console.log('allowUpdate = ', this.allowUpdate)
                 if (this.allowUpdate && this.columnObj[colIndex] && this.forecastData[rowIndex]) {
                     if (rowIndex < this.forecastData.length) {
-                        // console.log('rowIndex = ', value);
                         const columnName = this.columnObj[colIndex].name;
                         this.forecastData[rowIndex][columnName] = value;
                     }
                 }
             },
             onbeforeinsertrow: (rowIndex, colIndex, rowHeaders) => {
-                console.log('onbeforeinsertrow');
                 this.allowUpdate = false;
                 return false;
-                // console.log('length', this.forecastData.length)
             },
             onbeforepaste: (data, a, b, c) => {
-                console.log('data', data);
-                console.log('a', a);
-                console.log('b', b);
-                console.log('b', c);
                 this.allowUpdate = true;
             }
         });
@@ -115,5 +109,10 @@ export class ForecastComponent implements OnInit {
             }
             this.forecastData.push(element);
         });
+    }
+
+    beforeCellSave(args: CellEditEventArgs): void {
+        const column = args.element.parentElement.firstChild.textContent;
+        const index = args.element['cellIndex'];
     }
 }

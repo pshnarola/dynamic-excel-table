@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@handsontable/angular": "^5.1.1",
+    "@syncfusion/ej2-angular-pivotview": "^18.1.54",
+    "@syncfusion/ej2-angular-spreadsheet": "^18.1.56",
     "classlist.js": "^1.1.20150312",
     "handsontable": "^7.4.2",
     "jexcel": "^4.2.0",

@@ -118,10 +118,11 @@ export const PLAN_COLUMNS = {
     columnIdentifier: 'columnName',
     columns: [
         {
-            key: 'key',
+            key: 'rowHeader',
             text: 'Key Figure',
+            isBold: true,
             textAlign: 'left',
-            isEditable: true
+            isEditable: false
         },
         {
             key: 'unit',
@@ -179,6 +180,31 @@ export const PLAN_COLUMNS = {
             isEditable: true
         }
     ]
+};
+
+export const rowHeader = {
+    columnName: 'rowHeader',
+    openingStock: 'openingStock',
+    demandElements: {
+        forecast: 'forecast',
+        salesOrder: 'EA',
+    },
+    totalCustomerDemandValue: 'EA',
+    totalCustomerDemand: {
+        distributionDemand: 'EA',
+        bomDemand: 'EA',
+    },
+    dependentDemand: 'EA',
+    totalDemand: 'EA',
+    supplyElements: {
+        plannedProductionReceipts: 'EA',
+        confirmedProductionReceipts: 'EA',
+        plannedDistributionReceipts: 'EA',
+        confirmedDistributionReceipts: 'EA',
+    },
+    totalReceipts: 'EA',
+    safetyStock: 'EA',
+    netRequirement: 'EA',
 };
 
 export const unitRes = {

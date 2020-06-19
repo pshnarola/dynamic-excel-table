@@ -34,4 +34,24 @@
 <div #spreadsheet></div>
 
 <hr>
+
+<h1>ej2 Syncfusion Spread sheet</h1>
+
+<ejs-spreadsheet #spreadsheetSync
+  (beforeCellSave)="beforeCellSave($event)"
+   [showSheetTabs]="false" [showRibbon]="false">
+    <e-sheets>
+      <e-sheet >
+        <e-ranges>
+          <e-range [dataSource]="forecastData"></e-range>
+        </e-ranges>
+        <e-columns>
+          <e-column value="bucket" [width]=120></e-column>
+          <e-column value="forecast" [width]=180></e-column>
+        </e-columns>
+      </e-sheet>
+    </e-sheets>
+  </ejs-spreadsheet>
+
+<hr>
 {{forecastData | json}}
