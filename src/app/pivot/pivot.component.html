@@ -5,7 +5,7 @@
         <tr>
             <th *ngFor="let column of columnConfig.columns; let columnIndex = index"
                 [ngClass]="{'text-left w-auto': columnIndex === 0}">
-                {{column.text}}
+                {{column.title}}
             </th>
         </tr>
     </thead>
@@ -21,7 +21,7 @@
                 }" (click)="makeEditable(row, column, rowIndex, columnIndex)">
                 <ng-container *ngIf="columnIndex==0;else elseBlock">
                     <p [ngClass]="{'text-bold': row.isBold, 'child-td': row.isChild}">
-                        {{row.text}}
+                        {{row.title}}
                     </p>
                 </ng-container>
                 <ng-template #elseBlock>

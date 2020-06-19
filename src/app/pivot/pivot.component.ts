@@ -16,19 +16,41 @@ export class PivotComponent implements OnInit {
     editableRows = [];
     columnIndexAPI = {};
 
-    //handson
+    // handson
     columns = [];
     dataset = [];
     hotSettings: Handsontable.GridSettings = {
         colHeaders: true,
         rowHeaders: false,
         selectionMode: 'single',
+        colWidths: (index) => {
+            if (index === 0) {
+                return '350px';
+            }
+            return '100px';
+        },
+        autoColumnSize: false,
         cells: (row, column, prop) => {
             const cellProperties: any = {};
-            console.log(this.editableRows);
+            // cellProperties.renderer = this.firstRowRenderer; // uses function directly
+            cellProperties.renderer = function (instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                td.style.textAlign = PLAN_COLUMNS.columns[col].textAlign;
+                if (column < 2) {
+                    const rowConfig = PLAN_ROWS[row];
+                    if (rowConfig.isBold) {
+                        td.style.fontWeight = 'bold';
+                    }
+                    if (rowConfig.isChild && column === 0) {
+                        td.style.paddingLeft = '20px';
+                    }
+                }
+            };
+            cellProperties.readOnly = true;
             if (this.editableRows.indexOf(row) > -1 && column > 1) {
-                console.log('Helllo');
                 cellProperties.readOnly = false;
+                cellProperties.type = 'numeric';
+                cellProperties.allowEmpty = false;
             }
             return cellProperties;
         }
@@ -44,10 +66,10 @@ export class PivotComponent implements OnInit {
     }
 
     async generateHandsonTable() {
-        this.columns = [];
-        this.columnConfig.columns.forEach(element => {
-            this.columns.push({ data: element.key, text: element.key, title: element.text, readOnly: true })
-        });
+        this.columns = this.columnConfig.columns;
+        // this.columnConfig.columns.forEach(element => {
+        //     this.columns.push({ data: element.key, title: element.title, readOnly: true });
+        // });
         this.dataset = [];
         await this.createeDataSet();
     }
@@ -55,30 +77,33 @@ export class PivotComponent implements OnInit {
     createeDataSet() {
         this.editableRows = [];
         return new Promise((resolve, reject) => {
-            this.planRowsConfig.forEach((row, index) => {
-                if (row.isEditable) {
-                    this.editableRows.push(index);
-                }
-                const rowObj: any = {};
-                this.columnConfig.columns.forEach(column => {
-
-                    if (column.key === 'rowHeader') {
-                        rowObj[column.key] = row.text;
-                    } else {
-                        const recordIndex = this.columnIndexAPI[column.key];
-                        rowObj[column.key] = '';
-                        if (!row.noValue) {
-                            if (!row.isChild) {
-                                rowObj[column.key] = this.tableDetails[recordIndex][row.key];
-                            } else {
-                                rowObj[column.key] = this.tableDetails[recordIndex][row.parent][row.key];
+            try {
+                this.planRowsConfig.forEach((row, index) => {
+                    if (row.isEditable) {
+                        this.editableRows.push(index);
+                    }
+                    const rowObj: any = {};
+                    this.columnConfig.columns.forEach(column => {
+                        if (column.key === 'rowHeader') {
+                            rowObj[column.key] = row.title;
+                        } else {
+                            const recordIndex = this.columnIndexAPI[column.key];
+                            rowObj[column.key] = '';
+                            if (!row.noValue) {
+                                if (!row.isChild) {
+                                    rowObj[column.key] = this.tableDetails[recordIndex][row.key];
+                                } else {
+                                    rowObj[column.key] = this.tableDetails[recordIndex][row.parent][row.key];
+                                }
                             }
                         }
-                    }
+                    });
+                    this.dataset.push(rowObj);
                 });
-                this.dataset.push(rowObj);
-            });
-            resolve();
+                resolve(true);
+            } catch (error) {
+                resolve(false);
+            }
         });
     }
 
@@ -91,6 +116,13 @@ export class PivotComponent implements OnInit {
 
     onBlurMethod(rowIndex, index) {
         this.editableCell[rowIndex + '_' + index] = false;
+    }
+
+    firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        td.style.fontWeight = 'bold';
+        td.style.color = 'green';
+        td.style.background = '#CEC';
     }
 
 }
