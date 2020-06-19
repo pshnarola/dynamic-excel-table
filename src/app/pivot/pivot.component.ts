@@ -32,12 +32,11 @@ export class PivotComponent implements OnInit {
         autoColumnSize: false,
         cells: (row, column, prop) => {
             const cellProperties: any = {};
-            // cellProperties.renderer = this.firstRowRenderer; // uses function directly
-            cellProperties.renderer = function (instance, td, row, col, prop, value, cellProperties) {
+            cellProperties.renderer = function(instance, td, rowIndex, col, property, value) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
                 td.style.textAlign = PLAN_COLUMNS.columns[col].textAlign;
                 if (column < 2) {
-                    const rowConfig = PLAN_ROWS[row];
+                    const rowConfig = PLAN_ROWS[rowIndex];
                     if (rowConfig.isBold) {
                         td.style.fontWeight = 'bold';
                     }
