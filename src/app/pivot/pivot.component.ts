@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PLAN_ROWS, PLAN_COLUMNS, unitRes, tableDetails, rowHeader } from '../plan-row.config';
 import Handsontable from 'handsontable';
-import { resolve } from 'url';
 
 @Component({
     selector: 'app-pivot',
@@ -32,17 +31,16 @@ export class PivotComponent implements OnInit {
         autoColumnSize: false,
         cells: (row, column, prop) => {
             const cellProperties: any = {};
-            cellProperties.renderer = function(instance, td, rowIndex, col, property, value) {
+            cellProperties.renderer = function(instance, td, rowIndex, colIndex, property, value) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
-                td.style.textAlign = PLAN_COLUMNS.columns[col].textAlign;
-                if (column < 2) {
-                    const rowConfig = PLAN_ROWS[rowIndex];
-                    if (rowConfig.isBold) {
-                        td.style.fontWeight = 'bold';
-                    }
-                    if (rowConfig.isChild && column === 0) {
-                        td.style.paddingLeft = '20px';
-                    }
+                const rowConfig = PLAN_ROWS[rowIndex];
+                const columnConfig = PLAN_COLUMNS.columns[colIndex];
+                td.style.textAlign = columnConfig.textAlign;
+                if (rowConfig.isBold && columnConfig.isBold) {
+                    td.style.fontWeight = 'bold';
+                }
+                if (rowConfig.isChild && column === 0) {
+                    td.style.paddingLeft = '20px';
                 }
             };
             cellProperties.readOnly = true;
@@ -66,9 +64,6 @@ export class PivotComponent implements OnInit {
 
     async generateHandsonTable() {
         this.columns = this.columnConfig.columns;
-        // this.columnConfig.columns.forEach(element => {
-        //     this.columns.push({ data: element.key, title: element.title, readOnly: true });
-        // });
         this.dataset = [];
         await this.createeDataSet();
     }
@@ -116,12 +111,4 @@ export class PivotComponent implements OnInit {
     onBlurMethod(rowIndex, index) {
         this.editableCell[rowIndex + '_' + index] = false;
     }
-
-    firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
-        Handsontable.renderers.TextRenderer.apply(this, arguments);
-        td.style.fontWeight = 'bold';
-        td.style.color = 'green';
-        td.style.background = '#CEC';
-    }
-
 }
