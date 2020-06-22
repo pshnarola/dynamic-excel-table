@@ -8,12 +8,14 @@ import { ForecastComponent } from './forecast/forecast.component';
 import { HotTableModule } from '@handsontable/angular';
 import { PivotViewModule } from '@syncfusion/ej2-angular-pivotview';
 import { SpreadsheetAllModule } from '@syncfusion/ej2-angular-spreadsheet';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PivotComponent,
-    ForecastComponent
+    ForecastComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ForecastComponent } from './forecast/forecast.component';
 import { PivotComponent } from './pivot/pivot.component';
+import { GraphComponent } from './graph/graph.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
     {
         path: 'pivot',
         component: PivotComponent
+    },
+    {
+        path: 'gantt-chart',
+        component: GraphComponent
     },
     {
         path: '',
