@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PLAN_ROWS, PLAN_COLUMNS, unitRes, tableDetails, rowHeader } from '../plan-row.config';
 import Handsontable from 'handsontable';
+import { HotTableRegisterer } from '@handsontable/angular';
 
 @Component({
     selector: 'app-pivot',
@@ -31,7 +32,7 @@ export class PivotComponent implements OnInit {
         autoColumnSize: false,
         cells: (row, column, prop) => {
             const cellProperties: any = {};
-            cellProperties.renderer = function(instance, td, rowIndex, colIndex, property, value) {
+            cellProperties.renderer = function (instance, td, rowIndex, colIndex, property, value) {
                 Handsontable.renderers.TextRenderer.apply(this, arguments);
                 const rowConfig = PLAN_ROWS[rowIndex];
                 const columnConfig = PLAN_COLUMNS.columns[colIndex];
@@ -52,14 +53,60 @@ export class PivotComponent implements OnInit {
             return cellProperties;
         }
     };
-    constructor() { }
+
+    //handson update implemetation
+    displayUpdatedData = false;
+    detailset = [];
+    tableId = 'updateTable';
+
+    updateSettings: Handsontable.GridSettings = {
+        colHeaders: true,
+        rowHeaders: true,
+        selectionMode: 'single',
+        autoColumnSize: false,
+        cells: (row, column, prop) => {
+            const cellProperties: any = {};
+            cellProperties.renderer = function (instance, td, rowIndex, colIndex, property, value) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+            };
+            return cellProperties;
+        },
+        afterChange: (change, source) => {
+            this.saveUpdatedData();
+        }
+    };
+
+    constructor(
+        private hotRegisterer: HotTableRegisterer
+    ) { }
 
     ngOnInit() {
         this.tableDetails.unshift(unitRes);
         this.tableDetails.forEach((element, index) => {
             this.columnIndexAPI[element[this.columnConfig.columnIdentifier]] = index;
         });
+        this.detailset = this.getNewDataSet();
         this.generateHandsonTable();
+    }
+
+    getNewDataSet() {
+        return [
+            {
+                a_value: Math.floor(Math.random() * (999 - 100 + 1) + 100),
+                b_value: Math.floor(Math.random() * (999 - 100 + 1) + 100),
+                c_value: Math.floor(Math.random() * (999 - 100 + 1) + 100)
+            },
+            {
+                a_value: Math.floor(Math.random() * (999 - 100 + 1) + 100),
+                b_value: Math.floor(Math.random() * (999 - 100 + 1) + 100),
+                c_value: Math.floor(Math.random() * (999 - 100 + 1) + 100)
+            }
+        ];
+    }
+
+    updateDataSet() {
+        this.detailset = this.getNewDataSet();
+        // this.hotRegisterer.getInstance(this.tableId).loadData();
     }
 
     async generateHandsonTable() {
@@ -110,5 +157,13 @@ export class PivotComponent implements OnInit {
 
     onBlurMethod(rowIndex, index) {
         this.editableCell[rowIndex + '_' + index] = false;
+    }
+
+    saveUpdate() {
+        this.displayUpdatedData = true;
+    }
+
+    saveUpdatedData() {
+
     }
 }

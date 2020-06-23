@@ -1,4 +1,22 @@
+<h1>Handson Table Update Implementation</h1>
+
+{{detailset | json}}
+<button (click)="updateDataSet()">Update Data</button>
 <br>
+<hot-table class="hot" [hotId]="tableId" [settings]="updateSettings" [data]="detailset" [colHeaders]="true" [rowHeaders]="true">
+    <hot-column data="a_value" [readOnly]="true" title="A"></hot-column>
+    <hot-column data="b_value" title="B"></hot-column>
+    <hot-column data="c_value" title="C"></hot-column>
+</hot-table>
+<br>
+<button (click)="saveUpdate()">Save</button>
+<br>
+<span *ngIf="displayUpdatedData">{{detailset | json}}</span>
+
+
+
+<br>
+<hr>
 <h1>Custom Implementation</h1>
 <table class="excel w-100">
     <thead>

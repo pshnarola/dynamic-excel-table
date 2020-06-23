@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Handsontable from 'handsontable';
+import * as Chart from 'chart.js'
 
 @Component({
   selector: 'app-graph',
@@ -289,29 +290,80 @@ export class GraphComponent implements OnInit {
     }
   ]
 
+  //syncfusion
+  public data: Object[];
+  public taskfield: Object;
+
+  //google charts
+  type = 'Timeline';
+  googleChartData = [
+    ['Firefox', 45, 100],
+    ['IE', 26, 100],
+    ['Chrome', 12, 100],
+    ['Safari', 8, 100],
+    ['Opera', 6, 100],
+    ['Others', 0, 100]
+  ];
+  columnNames = ['Browser', 'Percentage', 'name'];
+  options = {
+  };
+  width = 550;
+  height = 400;
+  timelineChartData: any;
+  column = [];
+  details = [];
+
+  //chart.js
+  canvas: any;
+  ctx: any;
   constructor() { }
 
+  ngAfterViewInit() {
+
+    this.canvas = document.getElementById('myChart');
+    this.ctx = this.canvas.getContext('2d');
+    let myChart = new Chart(this.ctx, {
+      type: 'horizontalBar',
+      data: {
+        labels: this.column,
+        datasets: [{
+          label: 'Pivot Data',
+          data: this.details[16],
+          backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 99, 132, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        display: true
+      }
+    });
+  }
 
   ngOnInit() {
-    console.log('---', this.rowData)  
-    console.log('---', this.columnData)
     var example2 = document.getElementById('example2');
 
     var data = [
       {
         startDate: '1/5/2015',
         endDate: '1/20/2015',
-        additionalData: {label: 'Opening Stock', quantity: '100'}
+        additionalData: { label: 'Opening Stock', quantity: '100' }
       },
       {
         startDate: '1/5/2015',
         endDate: '1/20/2015',
-        additionalData: {label: 'Opening Stock 1', quantity: '200'}
+        additionalData: { label: 'Opening Stock 1', quantity: '200' }
       },
       {
         startDate: '1/11/2015',
         endDate: '1/29/2015',
-        additionalData: {label: 'Demand Elements', quantity: '200'}
+        additionalData: { label: 'Demand Elements', quantity: '200' }
       }
     ];
     var hot2 = new Handsontable(example2, {
@@ -326,7 +378,50 @@ export class GraphComponent implements OnInit {
       width: '100%',
       height: 255
     });
-
+    this.chartDetails();
+    this.angularGoogleCharts();
   }
 
+  chartDetails() {
+    this.data = [
+      {
+        TaskID: 1,
+        TaskName: 'Product Concept',
+        StartDate: new Date('04/02/2019'),
+        EndDate: new Date('04/21/2019'),
+        subtasks: [
+          { TaskID: 2, TaskName: 'Defining the product and its usage', StartDate: new Date('04/02/2019'), Duration: 3, Progress: 30 },
+          { TaskID: 3, TaskName: 'Defining target audience', StartDate: new Date('04/02/2019'), Duration: 3 },
+          {
+            TaskID: 4, TaskName: 'Prepare product sketch and notes', StartDate: new Date('04/02/2019'),
+            Duration: 3, Predecessor: '2', Progress: 30
+          },
+        ]
+      },
+      {
+        TaskID: 5,
+        TaskName: 'Concept Approval',
+        StartDate: new Date('04/02/2019'),
+        Duration: 0,
+        Predecessor: '3,4'
+      },
+    ];
+    this.taskfield = {
+      id: 'TaskID',
+      name: 'TaskName',
+      startDate: 'StartDate',
+      endDate: 'EndDate',
+      duration: 'Duration',
+      child: 'subtasks'
+    };
+  }
+
+  angularGoogleCharts() {
+    this.rowData.forEach(element => {
+      let value = Object.keys(element)
+      this.column = value;
+    });
+    const mappedToArray = this.rowData.map(d => Array.from(Object.values(d)))
+    this.details = mappedToArray;
+  }
 }

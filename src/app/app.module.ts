@@ -9,6 +9,8 @@ import { HotTableModule } from '@handsontable/angular';
 import { PivotViewModule } from '@syncfusion/ej2-angular-pivotview';
 import { SpreadsheetAllModule } from '@syncfusion/ej2-angular-spreadsheet';
 import { GraphComponent } from './graph/graph.component';
+import { GanttModule } from '@syncfusion/ej2-angular-gantt';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,11 @@ import { GraphComponent } from './graph/graph.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HotTableModule,
+    HotTableModule.forRoot(),
     PivotViewModule,
-    SpreadsheetAllModule
+    SpreadsheetAllModule,
+    GanttModule,
+    GoogleChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

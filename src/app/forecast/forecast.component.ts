@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Handsontable from 'handsontable';
 import * as jexcel from 'jexcel';
 import { SpreadsheetComponent, CellEditEventArgs } from '@syncfusion/ej2-angular-spreadsheet';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-forecast',
@@ -27,6 +28,40 @@ export class ForecastComponent implements OnInit {
         {
             bucket: 'wk04',
             forecast: ''
+        },
+        {
+            bucket: 'wk05',
+            forecast: ''
+        },
+        {
+            bucket: 'wk06',
+            forecast: ''
+        },
+        {
+            bucket: 'wk07',
+            forecast: ''
+        },
+        {
+            bucket: 'wk08',
+            forecast: ''
+        }
+    ];
+    syncfusionData = [
+        {
+            PLANBUCKET: 'wk01',
+            FORECAST: ''
+        },
+        {
+            PLANBUCKET: 'wk02',
+            FORECAST: ''
+        },
+        {
+            PLANBUCKET: 'wk03',
+            FORECAST: ''
+        },
+        {
+            PLANBUCKET: 'wk04',
+            FORECAST: ''
         }
     ];
     hotSettings: Handsontable.GridSettings = {
@@ -57,12 +92,12 @@ export class ForecastComponent implements OnInit {
     columnObj = [];
     allowUpdate = true;
 
-    constructor() { }
+    constructor(private modalService: NgbModal) { }
 
     ngOnInit() {
         this.columnObj = [
-            { width: 100, name: 'bucket', title: 'Bucket', readOnly: true },
-            { width: 100, name: 'forecast', title: 'Forecast', type: 'numeric', decimal: ',' }
+            { width: 100, name: 'bucket', title: 'PLANBUCKET', readOnly: true },
+            { width: 100, name: 'forecast', title: 'FORECAST', type: 'numeric', decimal: ',' }
         ];
 
         jexcel(this.spreadsheet.nativeElement, {
@@ -86,7 +121,7 @@ export class ForecastComponent implements OnInit {
             },
             onbeforeinsertrow: (rowIndex, colIndex, rowHeaders) => {
                 this.allowUpdate = false;
-                return false;
+                // return false;
             },
             onbeforepaste: (data, a, b, c) => {
                 this.allowUpdate = true;

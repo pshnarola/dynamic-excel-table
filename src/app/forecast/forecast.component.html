@@ -1,10 +1,12 @@
 <h1>Custom Implementation</h1>
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+<br>
 <table id="example" class="display excel">
     <thead>
         <tr>
             <th>&nbsp;</th>
-            <th>A</th>
-            <th>B</th>
+            <th>PLANBUCKET</th>
+            <th>FORECAST</th>
         </tr>
     </thead>
     <tbody>
@@ -43,7 +45,7 @@
     <e-sheets>
       <e-sheet >
         <e-ranges>
-          <e-range [dataSource]="forecastData"></e-range>
+          <e-range [dataSource]="syncfusionData"></e-range>
         </e-ranges>
         <e-columns>
           <e-column value="bucket" [width]=120></e-column>
