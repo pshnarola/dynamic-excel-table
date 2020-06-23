@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Handsontable from 'handsontable';
 import * as jexcel from 'jexcel';
 import { SpreadsheetComponent, CellEditEventArgs } from '@syncfusion/ej2-angular-spreadsheet';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-forecast',
@@ -92,7 +91,7 @@ export class ForecastComponent implements OnInit {
     columnObj = [];
     allowUpdate = true;
 
-    constructor(private modalService: NgbModal) { }
+    constructor() { }
 
     ngOnInit() {
         this.columnObj = [
