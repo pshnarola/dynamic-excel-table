@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Handsontable from 'handsontable';
 import * as jexcel from 'jexcel';
 import { SpreadsheetComponent, CellEditEventArgs } from '@syncfusion/ej2-angular-spreadsheet';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-forecast',
@@ -91,7 +92,7 @@ export class ForecastComponent implements OnInit {
     columnObj = [];
     allowUpdate = true;
 
-    constructor() { }
+    constructor(private modalService: NgbModal) { }
 
     ngOnInit() {
         this.columnObj = [
@@ -148,5 +149,29 @@ export class ForecastComponent implements OnInit {
     beforeCellSave(args: CellEditEventArgs): void {
         const column = args.element.parentElement.firstChild.textContent;
         const index = args.element['cellIndex'];
+    }
+
+    openCustomTable(customContent) {
+        this.modalService.open(customContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        }, (reason) => {
+        });
+    }
+
+    openHandsonTable(handsonContent) {
+        this.modalService.open(handsonContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        }, (reason) => {
+        });
+    }
+
+    openJexcelTable(jexcelContent) {
+        this.modalService.open(jexcelContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        }, (reason) => {
+        });
+    }
+
+    openSyncfusionTable(syncfusionContent) {
+        this.modalService.open(syncfusionContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        }, (reason) => {
+        });
     }
 }

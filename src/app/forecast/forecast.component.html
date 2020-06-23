@@ -1,48 +1,96 @@
-<h1>Custom Implementation</h1>
 <br>
-<table id="example" class="display excel">
-    <thead>
+<h1 class="ml-3">Custom Implementation</h1>
+<br>
+<button class="btn btn-lg btn-outline-primary ml-5" (click)="openCustomTable(customContent)">Upload</button>
+<br>
+<ng-template #customContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Forecast Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table id="example" class="display excel">
+      <thead>
         <tr>
-            <th>&nbsp;</th>
-            <th>PLANBUCKET</th>
-            <th>FORECAST</th>
+          <th>&nbsp;</th>
+          <th>PLANBUCKET</th>
+          <th>FORECAST</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         <tr *ngFor="let forecast of forecastData;let i = index">
-            <td class="row-number">
-                <span>
-                    {{ i+1 }}
-                </span>
-            </td>
-            <td style="width: 100px;">{{ forecast.bucket }}</td>
-            <td style="width: 100px;">
-                <input type="text" (paste)="onPaste($event, i)" [(ngModel)]="forecast.forecast">
-            </td>
+          <td class="row-number">
+            <span>
+              {{ i+1 }}
+            </span>
+          </td>
+          <td style="width: 100px;">{{ forecast.bucket }}</td>
+          <td style="width: 100px;">
+            <input type="text" (paste)="onPaste($event, i)" [(ngModel)]="forecast.forecast">
+          </td>
         </tr>
-    </tbody>
-</table>
-
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
 <hr>
 
-<h1>Handson Table Implementation</h1>
-<hot-table #hot class="hot" [settings]="hotSettings">
-</hot-table>
-
+<h1 class="ml-3">Handson Table Implementation</h1>
+<button class="btn btn-lg btn-outline-primary ml-5" (click)="openHandsonTable(handsonContent)">Upload</button>
+<ng-template #handsonContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Forecast Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <hot-table #hot class="hot" [settings]="hotSettings">
+    </hot-table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
 <hr>
 
-<h1>Jexcel</h1>
+<h1 class="ml-3">Jexcel</h1>
+<!-- <button class="btn btn-lg btn-outline-primary ml-5" (click)="openJexcelTable(jexcelContent)">Upload</button> -->
+<!-- <ng-template #jexcelContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Forecast Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template> -->
 <div #spreadsheet></div>
-
 <hr>
 
-<h1>ej2 Syncfusion Spread sheet</h1>
-
-<ejs-spreadsheet #spreadsheetSync
-  (beforeCellSave)="beforeCellSave($event)"
-   [showSheetTabs]="false" [showRibbon]="false">
+<h1 class="ml-3">ej2 Syncfusion Spread sheet</h1>
+<button class="btn btn-lg btn-outline-primary ml-5" (click)="openSyncfusionTable(syncfusionContent)">Upload</button>
+<ng-template #syncfusionContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Forecast Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ejs-spreadsheet #spreadsheetSync (beforeCellSave)="beforeCellSave($event)" [showSheetTabs]="false"
+    [showRibbon]="false">
     <e-sheets>
-      <e-sheet >
+      <e-sheet>
         <e-ranges>
           <e-range [dataSource]="syncfusionData"></e-range>
         </e-ranges>
@@ -53,6 +101,10 @@
       </e-sheet>
     </e-sheets>
   </ejs-spreadsheet>
-
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
 <hr>
 {{forecastData | json}}

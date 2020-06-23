@@ -11,6 +11,7 @@ import { SpreadsheetAllModule } from '@syncfusion/ej2-angular-spreadsheet';
 import { GraphComponent } from './graph/graph.component';
 import { GanttModule } from '@syncfusion/ej2-angular-gantt';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     PivotViewModule,
     SpreadsheetAllModule,
     GanttModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
