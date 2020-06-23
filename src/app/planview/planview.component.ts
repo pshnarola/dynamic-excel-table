@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import Handsontable from 'handsontable';
-import { HotTableRegisterer } from '@handsontable/angular';
 
 @Component({
   selector: 'app-planview',
@@ -48,5 +47,9 @@ export class PlanviewComponent implements OnInit {
       {date:'04-01-2020', forecast: 100, distribution: 100, total: 200},
       {date:'05-01-2020', forecast: 200, distribution: 300, total: 500},
     ]
+  }
+
+  updateData() {
+    this.displayUpdatedData = true;
   }
 }

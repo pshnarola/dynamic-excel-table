@@ -8,3 +8,7 @@
     <hot-column data="total" [readOnly]="true" title="Total"></hot-column>
 </hot-table>
 <br>
+
+<button class="btn btn-lg btn-outline-primary ml-5" (click)="updateData()">Save</button>
+<br>
+<span *ngIf="displayUpdatedData">{{detailset | json}}</span>
