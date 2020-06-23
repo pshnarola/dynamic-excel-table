@@ -12,13 +12,15 @@ import { GraphComponent } from './graph/graph.component';
 import { GanttModule } from '@syncfusion/ej2-angular-gantt';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PlanviewComponent } from './planview/planview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PivotComponent,
     ForecastComponent,
-    GraphComponent
+    GraphComponent,
+    PlanviewComponent
   ],
   imports: [
     BrowserModule,

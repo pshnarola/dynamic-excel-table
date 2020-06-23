@@ -3,7 +3,8 @@
 {{detailset | json}}
 <button (click)="updateDataSet()">Update Data</button>
 <br>
-<hot-table class="hot" [hotId]="tableId" [settings]="updateSettings" [data]="detailset" [colHeaders]="true" [rowHeaders]="true">
+<hot-table class="hot" [hotId]="tableId" [settings]="updateSettings" [data]="detailset" [colHeaders]="true"
+    [rowHeaders]="true">
     <hot-column data="a_value" [readOnly]="true" title="A"></hot-column>
     <hot-column data="b_value" title="B"></hot-column>
     <hot-column data="c_value" title="C"></hot-column>
