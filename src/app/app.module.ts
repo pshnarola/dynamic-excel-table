@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PlanviewComponent } from './planview/planview.component';
 import { SpreadsheetComponent } from './forecast/spreadsheet.component';
 import { SpreadsheetDataSampleComponent } from './forecast/datasample.component';
+import { PlanviewAlternativeComponent } from './planview-alternative/planview-alternative.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SpreadsheetDataSampleComponent } from './forecast/datasample.component'
     GraphComponent,
     PlanviewComponent,
     SpreadsheetComponent,
-    SpreadsheetDataSampleComponent
+    SpreadsheetDataSampleComponent,
+    PlanviewAlternativeComponent
   ],
   imports: [
     BrowserModule,

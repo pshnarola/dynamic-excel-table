@@ -5,6 +5,7 @@ import { PivotComponent } from './pivot/pivot.component';
 import { GraphComponent } from './graph/graph.component';
 import { PlanviewComponent } from './planview/planview.component';
 import { SpreadsheetDataSampleComponent } from './forecast/datasample.component';
+import { PlanviewAlternativeComponent } from './planview-alternative/planview-alternative.component';
 
 
 const routes: Routes = [
@@ -17,8 +18,12 @@ const routes: Routes = [
         component: PivotComponent
     },
     {
-        path: 'plan-view',
+        path: 'plan-view-approach-1',
         component: PlanviewComponent
+    },
+    {
+        path: 'plan-view-approach-2',
+        component: PlanviewAlternativeComponent
     },
     {
         path: 'gantt-chart',
