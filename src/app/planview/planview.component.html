@@ -31,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let forecast of detailset;let i = index">
+        <tr *ngFor="let forecast of dataSet;let i = index">
             <td class="row-number">
                 <span>
                     {{i+1}}
@@ -39,7 +39,8 @@
             </td>
             <td>{{ forecast.date }}</td>
             <td style="width: 100px; border-bottom: 1px solid #ccc;">
-                <input type="text" [value]="forecast.forecast" [(ngModel)]="forecast.forecast" (blur)="onBlurMethod(forecast, i, forecast.forecast)">
+                <input type="text" [value]="forecast.forecast" [(ngModel)]="forecast.forecast"
+                 (blur)="onBlurMethod(forecast, i, forecast.forecast)">
             </td>
             <td style="width: 100px;">
                 {{ forecast.distribution }}
@@ -54,3 +55,4 @@
 <button class="btn btn-lg btn-outline-primary ml-5" (click)="updateData()">Save</button>
 <br>
 <span *ngIf="displayUpdatedData">{{detailset | json}}</span>
+<br>

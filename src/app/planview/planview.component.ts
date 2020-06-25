@@ -61,6 +61,14 @@ export class PlanviewComponent implements OnInit {
       {date:'05-01-2020', forecast: 200, distribution: 300, total: 500},
     ]
 
+    this.dataSet = [
+      {date:'01-01-2020', forecast: 200, distribution: 195, total: 395},
+      {date:'02-01-2020', forecast: 171, distribution: 180, total: 351},
+      {date:'03-01-2020', forecast: 300, distribution: 140, total: 440},
+      {date:'04-01-2020', forecast: 100, distribution: 100, total: 200},
+      {date:'05-01-2020', forecast: 200, distribution: 300, total: 500},
+    ]
+
     //column implementation
     var example = document.getElementById('example');
     var hot1 = new Handsontable(example, {
@@ -102,6 +110,6 @@ export class PlanviewComponent implements OnInit {
     const json = {
       date:'01-01-2020', forecast: updatedValue, distribution: 200, total: 500
     }
-    this.detailset[currentRow] = json;
+    this.dataSet[currentRow] = json;
   }
 }
