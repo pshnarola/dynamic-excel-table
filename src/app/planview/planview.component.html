@@ -39,7 +39,7 @@
             </td>
             <td>{{ forecast.date }}</td>
             <td style="width: 100px; border-bottom: 1px solid #ccc;">
-                <input type="text" [value]="forecast.forecast" [(ngModel)]="forecast.forecast">
+                <input type="text" [value]="forecast.forecast" [(ngModel)]="forecast.forecast" (blur)="onBlurMethod(forecast, i, forecast.forecast)">
             </td>
             <td style="width: 100px;">
                 {{ forecast.distribution }}

@@ -95,4 +95,13 @@ export class PlanviewComponent implements OnInit {
   updateData() {
     this.displayUpdatedData = true;
   }
+
+  onBlurMethod(value, index, newValue) {
+    let currentRow = index;
+    let updatedValue = Number(newValue);
+    const json = {
+      date:'01-01-2020', forecast: updatedValue, distribution: 200, total: 500
+    }
+    this.detailset[currentRow] = json;
+  }
 }
