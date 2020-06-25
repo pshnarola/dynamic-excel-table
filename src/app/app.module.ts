@@ -13,6 +13,8 @@ import { GanttModule } from '@syncfusion/ej2-angular-gantt';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PlanviewComponent } from './planview/planview.component';
+import { SpreadsheetComponent } from './forecast/spreadsheet.component';
+import { SpreadsheetDataSampleComponent } from './forecast/datasample.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { PlanviewComponent } from './planview/planview.component';
     PivotComponent,
     ForecastComponent,
     GraphComponent,
-    PlanviewComponent
+    PlanviewComponent,
+    SpreadsheetComponent,
+    SpreadsheetDataSampleComponent
   ],
   imports: [
     BrowserModule,

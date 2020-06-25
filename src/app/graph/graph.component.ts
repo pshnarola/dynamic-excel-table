@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import Handsontable from 'handsontable';
 import * as Chart from 'chart.js'
+import "dhtmlx-gantt";
+import { gantt } from 'dhtmlx-gantt';
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.scss']
 })
 export class GraphComponent implements OnInit {
+  @ViewChild("gantt_here", {static: true}) ganttContainer: ElementRef;
+
   rowData = [
     {
       "rowHeader": "Opening Stock",
@@ -316,6 +321,10 @@ export class GraphComponent implements OnInit {
   //chart.js
   canvas: any;
   ctx: any;
+
+  //dhtmlx
+  dhtmlxData = [];
+
   constructor() { }
 
   ngAfterViewInit() {
@@ -380,6 +389,15 @@ export class GraphComponent implements OnInit {
     });
     this.chartDetails();
     this.angularGoogleCharts();
+    this.dhtmlxChart();
+  }
+
+  dhtmlxChart() {
+    gantt.init(this.ganttContainer.nativeElement);
+    let data = [{ id: 1, text: "Task #1", start_date: "2017-04-15 00:00", duration: 3, progress: 0.6 },
+    { id: 2, text: "Task #2", start_date: "2017-04-18 00:00", duration: 3, progress: 0.4 }
+    ];
+    gantt.parse({data});
   }
 
   chartDetails() {

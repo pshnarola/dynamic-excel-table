@@ -29,10 +29,13 @@
                         ],
                         "styles": [
                             "./node_modules/jexcel/dist/jexcel.css",
+                            "./node_modules/dhx-spreadsheet/codebase/spreadsheet.min.css",
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "./node_modules/dhx-spreadsheet/codebase/spreadsheet.min.js"
+                        ]
                     },
                     "configurations": {
                         "production": {

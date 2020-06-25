@@ -4,6 +4,7 @@ import { ForecastComponent } from './forecast/forecast.component';
 import { PivotComponent } from './pivot/pivot.component';
 import { GraphComponent } from './graph/graph.component';
 import { PlanviewComponent } from './planview/planview.component';
+import { SpreadsheetDataSampleComponent } from './forecast/datasample.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
     {
         path: 'gantt-chart',
         component: GraphComponent
+    },
+    {
+        path: 'dhx-forecast',
+        component: SpreadsheetDataSampleComponent
     },
     {
         path: '',
