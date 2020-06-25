@@ -1,5 +1,5 @@
 <br>
-<h1 class="ml-3">Handson Table Update Implementation</h1>
+<h1 class="ml-3">Handson Table Update Row Implementation</h1>
 <hot-table class="hot ml-5" [hotId]="tableId" [settings]="updateSettings" [data]="detailset" [colHeaders]="true"
     [rowHeaders]="true">
     <hot-column data="date" [readOnly]="true" title="Date"></hot-column>
@@ -8,7 +8,49 @@
     <hot-column data="total" [readOnly]="true" title="Total"></hot-column>
 </hot-table>
 <br>
+<button class="btn btn-lg btn-outline-primary ml-5" (click)="updateData()">Save</button>
+<br>
+<span *ngIf="displayUpdatedData">{{detailset | json}}</span>
 
+<hr>
+<h1 class="ml-3">Handson Table Update Column Implementation</h1>
+<div id="example"></div>
+<button class="btn btn-lg btn-outline-primary ml-5" (click)="updateData()">Save</button>
+<span *ngIf="displayUpdatedData">{{detailset | json}}</span>
+
+<hr>
+<h1 class="ml-3">Custom Table Update Implementation</h1>
+<table id="example" class="display excel">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Date</th>
+            <th>Forecast</th>
+            <th>Distribution</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let forecast of detailset;let i = index">
+            <td class="row-number">
+                <span>
+                    {{i+1}}
+                </span>
+            </td>
+            <td>{{ forecast.date }}</td>
+            <td style="width: 100px; border-bottom: 1px solid #ccc;">
+                <input type="text" [value]="forecast.forecast" [(ngModel)]="forecast.forecast">
+            </td>
+            <td style="width: 100px;">
+                {{ forecast.distribution }}
+            </td>
+            <td style="width: 100px;">
+                {{ forecast.total }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
 <button class="btn btn-lg btn-outline-primary ml-5" (click)="updateData()">Save</button>
 <br>
 <span *ngIf="displayUpdatedData">{{detailset | json}}</span>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Handsontable from 'handsontable';
+import { HotTableRegisterer } from '@handsontable/angular';
 
 @Component({
   selector: 'app-planview',
@@ -10,6 +11,8 @@ export class PlanviewComponent implements OnInit {
   displayUpdatedData = false;
   detailset = [];
   tableId = 'updateTable';
+  dataSet = [];
+  table_id = 'updateTable'
 
   updateSettings: Handsontable.GridSettings = {
       colHeaders: true,
@@ -30,13 +33,23 @@ export class PlanviewComponent implements OnInit {
           return cellProperties;
       },
       afterChange: (change, source) => {
-        console.log('updated data-->', JSON.stringify({data: change}))
+        if(change !== null) {
+          let currentRow = change[0][0];
+          let newValue = Number(change[0][3]);
+          let cell = this.detailset[currentRow];
+          const json = {
+            date:'01-01-2020', forecast: newValue, distribution: 200, total: 500
+          }
+          this.detailset[currentRow] = json;
+          this.hotRegisterer.getInstance(this.tableId).loadData(this.detailset);
+        }
       }
   };
-  constructor() { }
+
+  constructor(private hotRegisterer: HotTableRegisterer) { }
 
   ngOnInit() {
-    this.generateHandsonTable()
+    this.generateHandsonTable();
   }
 
   generateHandsonTable() {
@@ -47,6 +60,36 @@ export class PlanviewComponent implements OnInit {
       {date:'04-01-2020', forecast: 100, distribution: 100, total: 200},
       {date:'05-01-2020', forecast: 200, distribution: 300, total: 500},
     ]
+
+    //column implementation
+    var example = document.getElementById('example');
+    var hot1 = new Handsontable(example, {
+      data: this.detailset,
+      colWidths: 100,
+      width: '100%',
+      height: 320,
+      rowHeights: 23,
+      rowHeaders: true,
+      colHeaders: true,
+      columns: [
+        {title: 'Date', data: 'date', readOnly: true, type: 'numeric'},
+        {title: 'Forecast', data: 'forecast', readOnly: false, type: 'numeric'},
+        {title: 'Distribution', data: 'distribution', readOnly: true, type: 'numeric'},
+        {title: 'Total', data: 'total', readOnly: true, type: 'numeric'},
+      ],
+      afterChange: (change, source) => {
+        if(change !== null) {
+           let currentColumn = change[0][1];
+           let newValue = Number(change[0][3]);
+           this.detailset.forEach((element, index) => {
+              if(element.hasOwnProperty(currentColumn)) {
+                this.detailset[index][currentColumn] = newValue;
+              }
+           });
+           hot1.loadData(this.detailset);
+        }
+      }
+    });
   }
 
   updateData() {
