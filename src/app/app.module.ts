@@ -16,6 +16,7 @@ import { PlanviewComponent } from './planview/planview.component';
 import { SpreadsheetComponent } from './forecast/spreadsheet.component';
 import { SpreadsheetDataSampleComponent } from './forecast/datasample.component';
 import { PlanviewAlternativeComponent } from './planview-alternative/planview-alternative.component';
+import { ExcelComponent } from './excel/excel.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PlanviewAlternativeComponent } from './planview-alternative/planview-al
     PlanviewComponent,
     SpreadsheetComponent,
     SpreadsheetDataSampleComponent,
-    PlanviewAlternativeComponent
+    PlanviewAlternativeComponent,
+    ExcelComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { GraphComponent } from './graph/graph.component';
 import { PlanviewComponent } from './planview/planview.component';
 import { SpreadsheetDataSampleComponent } from './forecast/datasample.component';
 import { PlanviewAlternativeComponent } from './planview-alternative/planview-alternative.component';
+import { ExcelComponent } from './excel/excel.component';
 
 
 const routes: Routes = [
@@ -34,8 +35,12 @@ const routes: Routes = [
         component: SpreadsheetDataSampleComponent
     },
     {
+        path: 'excel',
+        component: ExcelComponent
+    },
+    {
         path: '',
-        redirectTo: 'forecast',
+        redirectTo: 'excel',
         pathMatch: 'full'
     }
 ];
