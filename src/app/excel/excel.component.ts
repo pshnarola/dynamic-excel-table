@@ -56,19 +56,29 @@ export class ExcelComponent implements OnInit {
   }
 
   actionComplete(args: SortEventArgs | CellSaveEventArgs | SaveCompleteEventArgs |
-     PasteSpecialType | CellInfoEventArgs | CellEditEventArgs) {
+    PasteSpecialType | CellInfoEventArgs | CellEditEventArgs) {
   }
 
   getPasteData(event) {
     const pasteDetails = event.target.offsetParent.firstChild.ej2_instances[0].childSheets.children.first.propCollection.rows;
+    console.log('paste details', pasteDetails);
     pasteDetails.forEach((element, index) => {
       if (index !== 0) {
         element.cells.forEach((cell, i) => {
           if (index <= this.syncfusionData.length) {
-            this.syncfusionData[index - 1].FORECAST = cell.value;
+            if (i === 0 && cell.value !== this.syncfusionData[index - 1].PLANBUCKET) {
+              this.errorMsg = 'Plan bucket is not as per required formate';
+            } else if (i === 1) {
+              this.syncfusionData[index - 1].FORECAST = cell.value;
+            }
           } else {
-            this.errorMsg = 'Extra Forecast Data has been Added Only ' + this.syncfusionData.length + 'Plan Buckets are available';
+            this.errorMsg = 'Extra Data has been Added Only ' + this.syncfusionData.length + 'Plan Buckets are available';
           }
+          // if (index <= this.syncfusionData.length) {
+          //   this.syncfusionData[index - 1].FORECAST = cell.value;
+          // } else {
+          //   this.errorMsg = 'Extra Forecast Data has been Added Only ' + this.syncfusionData.length + 'Plan Buckets are available';
+          // }
         });
       }
     });
