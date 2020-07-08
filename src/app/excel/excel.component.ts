@@ -30,6 +30,7 @@ export class ExcelComponent implements OnInit {
       FORECAST: ''
     }
   ];
+  errorMsg: any;
 
   constructor(private modalService: NgbModal) { }
 
@@ -47,7 +48,6 @@ export class ExcelComponent implements OnInit {
   }
 
   beforeCellSave(args: CellEditEventArgs): void {
-    console.log('args', args);
     const column = args.element.parentElement.firstChild.textContent;
     const value = args.value;
     // tslint:disable-next-line:no-string-literal
@@ -57,19 +57,17 @@ export class ExcelComponent implements OnInit {
 
   actionComplete(args: SortEventArgs | CellSaveEventArgs | SaveCompleteEventArgs |
      PasteSpecialType | CellInfoEventArgs | CellEditEventArgs) {
-    console.log('args-->', args);
   }
 
-  getData(event) {
+  getPasteData(event) {
     const pasteDetails = event.target.offsetParent.firstChild.ej2_instances[0].childSheets.children.first.propCollection.rows;
     pasteDetails.forEach((element, index) => {
       if (index !== 0) {
         element.cells.forEach((cell, i) => {
-          if (i !== 0 && index <= this.syncfusionData.length) {
+          if (index <= this.syncfusionData.length) {
             this.syncfusionData[index - 1].FORECAST = cell.value;
-            console.log('cell', cell, index);
           } else {
-            console.log('invalid patern');
+            this.errorMsg = 'Extra Forecast Data has been Added Only ' + this.syncfusionData.length + 'Plan Buckets are available';
           }
         });
       }
@@ -77,8 +75,11 @@ export class ExcelComponent implements OnInit {
   }
 
   cellEdit(args: CellEditEventArgs): void {
-    console.log('args edit', args);
     if (args.address.includes('A1') || args.address.includes('B1')) { args.cancel = true; }
+  }
+
+  getData(event) {
+    console.log('open excel data', event);
   }
 
 }

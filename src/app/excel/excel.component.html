@@ -3,32 +3,35 @@
 <button class="btn btn-lg btn-outline-primary ml-5" (click)="openSyncfusionTable(syncfusionContent)">Upload</button>
 <ng-template #syncfusionContent let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Add Forecast Details</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title" id="modal-basic-title">Add Forecast Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
-      <ejs-spreadsheet #spreadsheetSync (beforeCellSave)="beforeCellSave($event)"
-      (actionComplete)="actionComplete($event)" (paste)="getData($event)" (created)="created()"
-      (cellEdit)="cellEdit($event)"
-      [showSheetTabs]="true" [showRibbon]="true" [enableClipboard]="true" [enableKeyboardShortcut]="true">
-      <e-sheets>
-        <e-sheet>
-          <e-ranges>
-            <e-range [dataSource]="syncfusionData"></e-range>
-          </e-ranges>
-          <e-columns>
-            <e-column value="PLANBUCKET" [width]=120></e-column>
-            <e-column value="FORECAST" [width]=180></e-column>
-          </e-columns>
-        </e-sheet>
-      </e-sheets>
-    </ejs-spreadsheet>
+        <ejs-spreadsheet #spreadsheetSync (beforeCellSave)="beforeCellSave($event)"
+            (actionComplete)="actionComplete($event)" (paste)="getPasteData($event)" (created)="created()"
+            (cellEdit)="cellEdit($event)" (getData)=getData($event) [showSheetTabs]="true" [showRibbon]="true"
+            [enableClipboard]="true" [enableKeyboardShortcut]="true" [allowOpen]="true" [allowSave]="true"
+            saveUrl="https://ej2services.syncfusion.com/production/web-services/api/spreadsheet/save"
+            openUrl="https://ej2services.syncfusion.com/production/web-services/api/spreadsheet/open">
+            <e-sheets>
+                <e-sheet>
+                    <e-ranges>
+                        <e-range [dataSource]="syncfusionData"></e-range>
+                    </e-ranges>
+                    <e-columns>
+                        <e-column value="PLANBUCKET" [width]=120></e-column>
+                        <e-column value="FORECAST" [width]=180></e-column>
+                    </e-columns>
+                </e-sheet>
+            </e-sheets>
+        </ejs-spreadsheet>
     </div>
+    <span *ngIf="errorMsg" style="color: red;padding-left: 17px;">{{errorMsg}}</span>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
     </div>
-  </ng-template>
-  <hr>
-  {{syncfusionData | json}}
+</ng-template>
+<hr>
+{{syncfusionData | json}}
