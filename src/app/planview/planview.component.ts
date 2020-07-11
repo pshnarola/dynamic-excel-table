@@ -12,38 +12,57 @@ export class PlanviewComponent implements OnInit {
   detailset = [];
   tableId = 'updateTable';
   dataSet = [];
-  table_id = 'updateTable'
+  // tslint:disable-next-line:variable-name
+  table_id = 'updateTable';
+
+  response = {
+    demands: [
+      {
+        planDate: '25/06/2020',
+        independentDemand: 100,
+        dependentDemand: 50,
+        totalDemand: 150
+      },
+      {
+        planDate: '26/06/2020',
+        independentDemand: 100,
+        dependentDemand: 50,
+        totalDemand: 150
+      }
+    ]
+  };
 
   updateSettings: Handsontable.GridSettings = {
-      colHeaders: true,
-      rowHeaders: true,
-      selectionMode: 'single',
-      autoColumnSize: false,
-      colWidths: (index) => {
-        if (index === 0) {
-            return '150px';
-        }
-        return '100px';
-    },
-      cells: (row, column, prop) => {
-          const cellProperties: any = {};
-          cellProperties.renderer = function (instance, td, rowIndex, colIndex, property, value) {
-              Handsontable.renderers.TextRenderer.apply(this, arguments);
-          };
-          return cellProperties;
-      },
-      afterChange: (change, source) => {
-        if(change !== null) {
-          let currentRow = change[0][0];
-          let newValue = Number(change[0][3]);
-          let cell = this.detailset[currentRow];
-          const json = {
-            date:'01-01-2020', forecast: newValue, distribution: 200, total: 500
-          }
-          this.detailset[currentRow] = json;
-          this.hotRegisterer.getInstance(this.tableId).loadData(this.detailset);
-        }
+    colHeaders: true,
+    rowHeaders: true,
+    selectionMode: 'single',
+    autoColumnSize: false,
+    colWidths: (index) => {
+      if (index === 0) {
+        return '150px';
       }
+      return '100px';
+    },
+    cells: (row, column, prop) => {
+      const cellProperties: any = {};
+      cellProperties.renderer = function (instance, td, rowIndex, colIndex, property, value) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+      };
+      return cellProperties;
+    },
+    afterChange: (change, source) => {
+      if (change !== null) {
+        const currentRow = change[0][0];
+        const newValue = Number(change[0][3]);
+        const cell = this.detailset[currentRow];
+        this.updatePivotData(newValue, cell, currentRow);
+        // const json = {
+        //   planDate:'01-01-2020', independentDemand: newValue, dependentDemand: 200, totalDemand: 500
+        // }
+        // this.detailset[currentRow] = json;
+        // this.hotRegisterer.getInstance(this.tableId).loadData(this.detailset);
+      }
+    }
   };
 
   constructor(private hotRegisterer: HotTableRegisterer) { }
@@ -53,25 +72,10 @@ export class PlanviewComponent implements OnInit {
   }
 
   generateHandsonTable() {
-    this.detailset = [
-      {date:'01-01-2020', forecast: 200, distribution: 195, total: 395},
-      {date:'02-01-2020', forecast: 171, distribution: 180, total: 351},
-      {date:'03-01-2020', forecast: 300, distribution: 140, total: 440},
-      {date:'04-01-2020', forecast: 100, distribution: 100, total: 200},
-      {date:'05-01-2020', forecast: 200, distribution: 300, total: 500},
-    ]
-
-    this.dataSet = [
-      {date:'01-01-2020', forecast: 200, distribution: 195, total: 395},
-      {date:'02-01-2020', forecast: 171, distribution: 180, total: 351},
-      {date:'03-01-2020', forecast: 300, distribution: 140, total: 440},
-      {date:'04-01-2020', forecast: 100, distribution: 100, total: 200},
-      {date:'05-01-2020', forecast: 200, distribution: 300, total: 500},
-    ]
-
-    //column implementation
-    var example = document.getElementById('example');
-    var hot1 = new Handsontable(example, {
+    this.detailset = this.response.demands;
+    // column implementation
+    const example = document.getElementById('example');
+    const hot1 = new Handsontable(example, {
       data: this.detailset,
       colWidths: 100,
       width: '100%',
@@ -80,24 +84,34 @@ export class PlanviewComponent implements OnInit {
       rowHeaders: true,
       colHeaders: true,
       columns: [
-        {title: 'Date', data: 'date', readOnly: true, type: 'numeric'},
-        {title: 'Forecast', data: 'forecast', readOnly: false, type: 'numeric'},
-        {title: 'Distribution', data: 'distribution', readOnly: true, type: 'numeric'},
-        {title: 'Total', data: 'total', readOnly: true, type: 'numeric'},
+        { title: 'Date', data: 'planDate', readOnly: true, type: 'numeric' },
+        { title: 'Forecast', data: 'independentDemand', readOnly: false, type: 'numeric' },
+        { title: 'Distribution', data: 'dependentDemand', readOnly: true, type: 'numeric' },
+        { title: 'Total', data: 'totalDemand', readOnly: true, type: 'numeric' },
       ],
       afterChange: (change, source) => {
-        if(change !== null) {
-           let currentColumn = change[0][1];
-           let newValue = Number(change[0][3]);
-           this.detailset.forEach((element, index) => {
-              if(element.hasOwnProperty(currentColumn)) {
-                this.detailset[index][currentColumn] = newValue;
-              }
-           });
-           hot1.loadData(this.detailset);
+        if (change !== null) {
+          //  let currentColumn = change[0][1];
+          //  let newValue = Number(change[0][3]);
+          //  this.detailset.forEach((element, index) => {
+          //     if(element.hasOwnProperty(currentColumn)) {
+          //       this.detailset[index][currentColumn] = newValue;
+          //     }
+          //  });
+          //  hot1.loadData(this.detailset);
         }
       }
     });
+  }
+
+  updatePivotData(newValue, cell, currentRow) {
+    const json = {};
+    // tslint:disable-next-line:no-string-literal
+    json['planDate'] = cell['planDate'];
+    // tslint:disable-next-line:no-string-literal
+    json['independentDemand'] = newValue;
+    // this.detailset[currentRow] = json;
+    //  this.hotRegisterer.getInstance(this.tableId).loadData(this.detailset);
   }
 
   updateData() {
@@ -105,11 +119,11 @@ export class PlanviewComponent implements OnInit {
   }
 
   onBlurMethod(value, index, newValue) {
-    let currentRow = index;
-    let updatedValue = Number(newValue);
-    const json = {
-      date:'01-01-2020', forecast: updatedValue, distribution: 200, total: 500
-    }
-    this.dataSet[currentRow] = json;
+    const currentRow = index;
+    const updatedValue = Number(newValue);
+    // const json = {
+    //   planDate:'01-01-2020', independentDemand: updatedValue, dependentDemand: 200, totalDemand: 500
+    // }
+    // this.detailset[currentRow] = json;
   }
 }

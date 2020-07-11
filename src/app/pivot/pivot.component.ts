@@ -54,7 +54,7 @@ export class PivotComponent implements OnInit {
         }
     };
 
-    //handson update implemetation
+    // handson update implemetation
     displayUpdatedData = false;
     detailset = [];
     tableId = 'updateTable';
