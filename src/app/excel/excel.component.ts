@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   SpreadsheetComponent, CellEditEventArgs, PasteSpecialType,
-  SortEventArgs, CellSaveEventArgs, SaveCompleteEventArgs, CellInfoEventArgs
+  SortEventArgs, CellSaveEventArgs, SaveCompleteEventArgs, CellInfoEventArgs, CellStyleModel
 } from '@syncfusion/ej2-angular-spreadsheet';
 
 @Component({
   selector: 'app-excel',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './excel.component.html',
   styleUrls: ['./excel.component.scss']
 })
@@ -31,6 +32,32 @@ export class ExcelComponent implements OnInit {
     }
   ];
   errorMsg: any;
+  planDetails = [
+    {
+      PLANBUCKET: 'wk01',
+      FORECAST: '',
+      LOCATION: '',
+      MATERIAL: ''
+    },
+    {
+      PLANBUCKET: 'wk02',
+      FORECAST: '',
+      LOCATION: '',
+      MATERIAL: ''
+    },
+    {
+      PLANBUCKET: 'wk03',
+      FORECAST: '',
+      LOCATION: '',
+      MATERIAL: ''
+    },
+    {
+      PLANBUCKET: 'wk04',
+      FORECAST: '',
+      LOCATION: '',
+      MATERIAL: ''
+    }
+  ];
 
   constructor(private modalService: NgbModal) { }
 
@@ -38,7 +65,7 @@ export class ExcelComponent implements OnInit {
   }
 
   created() {
-    // this.spreadsheetObj.cellFormat({ fontWeight: 'bold', textAlign: 'center' }, 'A1:B1');
+    //  this.spreadsheetObj.cellFormat({ fontWeight: 'bold', fontSize: '12pt' }, 'A1:B1');
   }
 
   openSyncfusionTable(syncfusionContent) {
@@ -57,9 +84,11 @@ export class ExcelComponent implements OnInit {
 
   actionComplete(args: SortEventArgs | CellSaveEventArgs | SaveCompleteEventArgs |
     PasteSpecialType | CellInfoEventArgs | CellEditEventArgs) {
+    console.log('local uploaded data', args);
   }
 
   getPasteData(event) {
+    console.log('paste', event);
     const pasteDetails = event.target.offsetParent.firstChild.ej2_instances[0].childSheets.children.first.propCollection.rows;
     console.log('paste details', pasteDetails);
     pasteDetails.forEach((element, index) => {
@@ -92,4 +121,9 @@ export class ExcelComponent implements OnInit {
     console.log('open excel data', event);
   }
 
+  openSyncfusionSpreadSheet(syncfusionDetails) {
+    this.modalService.open(syncfusionDetails, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    }, (reason) => {
+    });
+  }
 }
