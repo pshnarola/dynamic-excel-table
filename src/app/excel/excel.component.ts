@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   SpreadsheetComponent, CellEditEventArgs, PasteSpecialType,
   SortEventArgs, CellSaveEventArgs, SaveCompleteEventArgs, CellInfoEventArgs, CellStyleModel
 } from '@syncfusion/ej2-angular-spreadsheet';
+import * as jexcel from 'jexcel';
 
 @Component({
   selector: 'app-excel',
@@ -13,6 +14,8 @@ import {
 })
 export class ExcelComponent implements OnInit {
   @ViewChild('spreadsheetSync', { static: true }) spreadsheetObj: SpreadsheetComponent;
+  // @ViewChild('sheet', { static: false }) sheet: ElementRef;
+
   syncfusionData = [
     {
       PLANBUCKET: 'wk01',
@@ -58,10 +61,53 @@ export class ExcelComponent implements OnInit {
       MATERIAL: ''
     }
   ];
+  excelData = [
+    {
+      bucket: 'BUCKET',
+      forecast: 'FORECAST'
+    },
+    {
+      bucket: 'wk01',
+      forecast: ''
+    },
+    {
+      bucket: 'wk02',
+      forecast: ''
+    },
+    {
+      bucket: 'wk03',
+      forecast: ''
+    },
+    {
+      bucket: 'wk04',
+      forecast: ''
+    },
+    {
+      bucket: 'wk05',
+      forecast: ''
+    },
+    {
+      bucket: 'wk06',
+      forecast: ''
+    },
+    {
+      bucket: 'wk07',
+      forecast: ''
+    },
+    {
+      bucket: 'wk08',
+      forecast: ''
+    }
+  ];
+  private modalRef: NgbModalRef;
 
   constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
+  }
+
+  // tslint:disable-next-line: use-lifecycle-interface
+  ngAfterViewInit() {
   }
 
   created() {
@@ -126,4 +172,24 @@ export class ExcelComponent implements OnInit {
     }, (reason) => {
     });
   }
+
+  openCustomExcel(excelContent) {
+    this.modalRef = this.modalService.open(excelContent);
+    this.createExcel();
+    this.modalRef.result.then((result) => {
+    }, (reason) => {
+    });
+  }
+
+  createExcel() {
+    jexcel(document.getElementById('excel'), {
+      data: this.excelData,
+      minDimensions: [30, 20],
+      columns: [
+        { width: 200 },
+        { width: 200 }
+      ],
+    });
+  }
+
 }
